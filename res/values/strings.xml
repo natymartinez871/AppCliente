@@ -21,7 +21,7 @@
     <string name="title_activity_fragmento_1">Fragmento_1</string>
     <string name="title_activity_act__login">Iniciar Sesión</string>
     <string name="registrarse_login">Registrarse</string>
-    <string name="action_sign_in">REGISTRARSE</string>
+    <string name="action_sign_in">INICIAR SESIÓN</string>
     <string name="acion_sign_up">REGISTRARSE</string>
     <string name="nombre_usuario"></string>
     <string name="cedula_usuario"></string>
@@ -41,5 +41,8 @@
     <string name="butt_actualizarcuenta_txt">Actualizar Datos</string>
     <string name="title_activity_act__menu_3">Act_Menu_3</string>
     <string name="title_activity_act_push">ActPush</string>
+    <string name="texttblabel_cedula">Cédula</string>
+    <string name="texttblabel_correo">Correo Electrónico</string>
+    <string name="texttblabel_telefono">"Teléfono "</string>
 
 </resources>

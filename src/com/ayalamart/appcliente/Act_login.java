@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Act_login_2 extends AppCompatActivity {
+public class Act_login extends AppCompatActivity {
 
 	private AutoCompleteTextView email; 
 	private EditText password; 
@@ -62,9 +62,9 @@ public class Act_login_2 extends AppCompatActivity {
 
 				if (validarCorreo(email_str)) {
 					if (validarPassword(password_str)) {			
-
-						sesion.crearSesionUSuario("nombre de la bd", email_str);
-
+						sesion.getDetallesUsuario(); 
+						
+						sesion.iniciarSesionUsuario("nombre en la bd", email_str);
 						Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
 						intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 						intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 

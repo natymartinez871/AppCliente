@@ -48,18 +48,22 @@ public class Act_Signup extends Activity {
 			@Override
 			public void onClick(View v) {	
 
+				final String name = "nombre_ejm"; 
+				final String email = "correo_ejm"; 
 				final String nombre_str = nombre.getText().toString(); 
 				final String cedula_str = cedula.getText().toString(); 
 				final String correo_str = correo.getText().toString(); 
 				final String telefono_str = telefono.getText().toString();
 				final String contrasena_str = contrasena.getText().toString(); 
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
+				
 
 				if (validarDatos(nombre_str, cedula_str, correo_str, telefono_str)) {
 					if (validarPassword(contrasena_str)) {
 						//si el password es valido, entra al siguiente ciclo 
 
 						if (!contrasena_str.equals(conf_contrasena_str)) {
+							
 							
 							String str_nomatch = "La contraseña no coincide";
 							mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
@@ -77,7 +81,7 @@ public class Act_Signup extends Activity {
 							mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
 							mensaje_error.setText(match);
 							
-							sesion.crearSesionUSuario(nombre_str, correo_str);
+							sesion.crearSesionUSuario(name, email, nombre_str, cedula_str, correo_str, telefono_str);
 							
 							//					aqui deberia colocar la transicion de que logro registrarse 
 							Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 

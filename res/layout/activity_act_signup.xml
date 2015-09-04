@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#96B497"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/act_pal_form"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:scrollY="10dp" >
+        android:layout_weight="1"
+        >
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/email_signup_form"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        >
+
+        <ScrollView
+            android:id="@+id/act_pal_form"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:orientation="vertical" >
+            android:scrollY="10dp"
+            android:layout_gravity="center" >
 
-            <AutoCompleteTextView
-                android:id="@+id/nombre_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:hint="@string/nombre_usuario_hint"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/nombre_usuario"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
+            <LinearLayout
+                android:id="@+id/email_signup_form"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:orientation="vertical" >
 
-                <requestFocus />
-            </AutoCompleteTextView>
+                <AutoCompleteTextView
+                    android:id="@+id/nombre_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:hint="@string/nombre_usuario_hint"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/nombre_usuario"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <AutoCompleteTextView
-                android:id="@+id/cedula_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:hint="@string/cedula_usuario_hint"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/cedula_usuario"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
-            </AutoCompleteTextView>
+                <AutoCompleteTextView
+                    android:id="@+id/cedula_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:hint="@string/cedula_usuario_hint"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/cedula_usuario"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <AutoCompleteTextView
-                android:id="@+id/email_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
-            </AutoCompleteTextView>
+                <AutoCompleteTextView
+                    android:id="@+id/email_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <AutoCompleteTextView
-                android:id="@+id/telefono_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:hint="@string/telefono_signup"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
-            </AutoCompleteTextView>
+                <AutoCompleteTextView
+                    android:id="@+id/telefono_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:hint="@string/telefono_signup"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <EditText
-                android:id="@+id/contrasena_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/contrasena_signup_hint"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
-            </EditText>
+                <EditText
+                    android:id="@+id/contrasena_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/contrasena_signup_hint"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <EditText
-                android:id="@+id/et_confirm_contrasena"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:hint="@string/confirmar_contrasena_signup_hint"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="#ffffffff"
-                android:textColorHint="#ffffffff" >
-            </EditText>
+                <EditText
+                    android:id="@+id/et_confirm_contrasena"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:hint="@string/confirmar_contrasena_signup_hint"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff"
+                    android:textColorHint="#ffffffff" />
 
-            <TextView
-                android:id="@+id/alerta_contr_no_match"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="2dp"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#ffffffff" />
+                <TextView
+                    android:id="@+id/alerta_contr_no_match"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="2dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffffff" />
 
-            <Button
-                android:id="@+id/but_signup"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="#6E9167"
-                android:text="@string/acion_sign_up"
-                android:textColor="#ffffffff"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </ScrollView>
+                <Button
+                    android:id="@+id/but_signup"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="#6E9167"
+                    android:text="@string/acion_sign_up"
+                    android:textColor="#ffffffff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+ 
+         android:layout_weight="1" >
+    </LinearLayout>
+
+</LinearLayout>

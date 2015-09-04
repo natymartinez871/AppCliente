@@ -27,8 +27,8 @@
                 android:id="@+id/fotousuarioIV"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_moustache"
                 android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_moustache"
                 android:clickable="true" />
         </LinearLayout>
 
@@ -52,11 +52,18 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Natasha Martínez"
                     android:textColor="#ffffffff" >
 
                     <requestFocus />
                 </AutoCompleteTextView>
+
+                <TextView
+                    android:id="@+id/tblabel_cedula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:text="@string/texttblabel_cedula"
+                    android:textColor="#ffffffff" />
 
                 <AutoCompleteTextView
                     android:id="@+id/mc_cedula"
@@ -67,7 +74,14 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="19242826"
+                    android:textColor="#ffffffff" />
+
+                <TextView
+                    android:id="@+id/tblabel_correo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:text="@string/texttblabel_correo"
                     android:textColor="#ffffffff" />
 
                 <AutoCompleteTextView
@@ -79,8 +93,15 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="naty@gmail.com"
                     android:textColor="#ffffffff" />
+
+                <TextView
+                    android:id="@+id/tblabel_telefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/texttblabel_telefono"
+                    android:textColor="#ffffffff" 
+                    android:alpha="0.5"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/mc_telefono"
@@ -91,21 +112,20 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="04123251298"
                     android:textColor="#ffffffff" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/mc_numerousuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:editable="false"
-                    android:ems="10"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="1235"
-                    android:textColor="#ffffffff" />
+                <!-- <AutoCompleteTextView -->
+                <!-- android:id="@+id/mc_numerousuario" -->
+                <!-- android:layout_width="match_parent" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:layout_marginBottom="10dp" -->
+                <!-- android:editable="false" -->
+                <!-- android:ems="10" -->
+                <!-- android:inputType="textCapWords" -->
+                <!-- android:maxLines="1" -->
+                <!-- android:singleLine="true" -->
+                <!-- android:text="1235" -->
+                <!-- android:textColor="#ffffffff" /> -->
 
                 <Button
                     android:id="@+id/but_actualizar_micuenta"

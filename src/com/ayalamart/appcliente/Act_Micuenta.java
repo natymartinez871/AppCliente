@@ -1,24 +1,19 @@
 package com.ayalamart.appcliente;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 
-import com.ayalamart.appcliente.R.drawable;
+import com.ayalamart.helper.GestionSesionesUsuario;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +23,11 @@ public class Act_Micuenta extends AppCompatActivity {
 	//private ImageButton boton_foto; 
 	private ImageView fotousuario;  
 	String mCurrentPhotoPath;
+	GestionSesionesUsuario sesion;
+	private AutoCompleteTextView nombreusuarioTV; 
+	private AutoCompleteTextView cedulausuarioTV;
+	private AutoCompleteTextView correousuarioTV; 
+	private AutoCompleteTextView telefonousuarioTV; 
 
 
 
@@ -36,23 +36,59 @@ public class Act_Micuenta extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__micuenta);
 
+		sesion = new GestionSesionesUsuario(getApplicationContext()); 
+		if (sesion.estaLogeadoelUsuario()) {
+			HashMap<String, String> usuario = sesion.getDetallesUsuario(); 
+			String name = usuario.get(GestionSesionesUsuario.KEY_NAME); 
+			String email = usuario.get(GestionSesionesUsuario.KEY_EMAIL); 
+			String nombre = usuario.get(GestionSesionesUsuario.nombre); 
+			String correo = usuario.get(GestionSesionesUsuario.correo); 
+			String telefono = usuario.get(GestionSesionesUsuario.telefono); 
+			String cedula = usuario.get(GestionSesionesUsuario.cedula); 
+
+			nombreusuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_nombre); 
+			cedulausuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_cedula); 
+			correousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_correo); 
+			telefonousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_telefono);
+			cedulausuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_cedula); 
+
+			nombreusuarioTV.setText(nombre);
+			cedulausuarioTV.setText(correo);
+			correousuarioTV.setText(correo);
+			telefonousuarioTV.setText(telefono);
+			cedulausuarioTV.setText(cedula);
+
+
+		}
+
+
 		Button boton_actualizarcuenta = (Button)findViewById(R.id.but_actualizar_micuenta); 
 		boton_actualizarcuenta.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
+				final String name = "nombre_ejm"; 
+				final String email = "correo_ejm"; 
+				final String nombre_act =  nombreusuarioTV.getText().toString();
+				final String correo_act = correousuarioTV.getText().toString();
+				final String telefono_act = telefonousuarioTV.getText().toString();
+				final String cedula_act = cedulausuarioTV.getText().toString();
+
+				sesion.crearSesionUSuario(name, email, nombre_act, cedula_act, correo_act, telefono_act);
+
 				Toast errorprueba_1 = Toast.makeText(getApplicationContext(), "Cuenta actualizada con éxito", Toast.LENGTH_SHORT); 
 				errorprueba_1.show();
 
 			}
 		});
 
-	
 		ImageView fotousuario = (ImageView)findViewById(R.id.fotousuarioIV);
 		fotousuario.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
 				Toast errorprueba_2 = Toast.makeText(getApplicationContext(), "Haga longclick para cambiar la foto ", Toast.LENGTH_SHORT); 
 				errorprueba_2.show();
 
@@ -83,46 +119,46 @@ public class Act_Micuenta extends AppCompatActivity {
 
 
 	}
-//	private void dispatchTakePictureIntent(){
-//		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//		// Ensure that there's a camera activity to handle the intent
-//		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//			// Create the File where the photo should go
-//			File photoFile = null;
-//			try {
-//				photoFile = createImagefile();
-//			} catch (IOException ex) {
-//				// Error occurred while creating the File
-//
-//			}
-//			// Continue only if the File was successfully created
-//			if (photoFile != null) {
-//				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-//						Uri.fromFile(photoFile));
-//				startActivityForResult(takePictureIntent, CAMERA_REQUEST);
-//			}
-//		}
-//
-//
-//	}
-//	private File createImagefile() throws IOException{
-//		// Create an image file name
-//		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//		String imageFileName = "JPEG_" + timeStamp + "_";
-//		File storageDir = Environment.getExternalStoragePublicDirectory(
-//				Environment.DIRECTORY_PICTURES);
-//		File image = File.createTempFile(
-//				imageFileName,  /* prefix */
-//				".jpg",         /* suffix */
-//				storageDir      /* directory */
-//				);
-//
-//		// Save a file: path for use with ACTION_VIEW intents
-//		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-//		return image;
-//
-//
-//	}
+	//	private void dispatchTakePictureIntent(){
+	//		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	//		// Ensure that there's a camera activity to handle the intent
+	//		if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	//			// Create the File where the photo should go
+	//			File photoFile = null;
+	//			try {
+	//				photoFile = createImagefile();
+	//			} catch (IOException ex) {
+	//				// Error occurred while creating the File
+	//
+	//			}
+	//			// Continue only if the File was successfully created
+	//			if (photoFile != null) {
+	//				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+	//						Uri.fromFile(photoFile));
+	//				startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+	//			}
+	//		}
+	//
+	//
+	//	}
+	//	private File createImagefile() throws IOException{
+	//		// Create an image file name
+	//		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	//		String imageFileName = "JPEG_" + timeStamp + "_";
+	//		File storageDir = Environment.getExternalStoragePublicDirectory(
+	//				Environment.DIRECTORY_PICTURES);
+	//		File image = File.createTempFile(
+	//				imageFileName,  /* prefix */
+	//				".jpg",         /* suffix */
+	//				storageDir      /* directory */
+	//				);
+	//
+	//		// Save a file: path for use with ACTION_VIEW intents
+	//		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+	//		return image;
+	//
+	//
+	//	}
 
 
 	@Override
