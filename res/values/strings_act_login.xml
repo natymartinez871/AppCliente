@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <!-- Strings related to login -->
+    <string name="prompt_email">Correo</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar Sesión</string>
+    <string name="invalid_email">El correo es inválido</string>
+    <string name="invalid_password">La contraseña es muy corta</string>
+    <string name="incorrect_password">La contraseña es inválida</string>
+    <string name="field_required">Este campo es obligatorio</string>
+</resources>

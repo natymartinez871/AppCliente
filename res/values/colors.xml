@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="color_palette">
+        <item>#B24C4F</item><!-- vinotinto (wine) -->
+        <item>#CC5D4C</item><!-- once toasted (brick red) -->
+        <item>#8A211D</item><!-- Fuji deep red -->
+        <item>#F0CE4E</item><!-- fuji gold -->
+        <item >#CF872E</item><!-- fuji ochre -->
+        <item>#FFFEC6</item><!-- -flowy dress (palest yellow) -->
+        <item>#EDE574</item><!-- give your heart (pale yellow) -->
+        <item>#C7D1AF</item><!-- Wind (gray green) -->
+        <item>#96B497</item><!-- unrestored sky (blueish green) -->
+        <item>#5B5847 </item><!-- inner forest (dark gray) -->
+        <item >#6E9167</item><!-- long drags (deep blueish green) -->
+        <item>#e1f5c4</item><!-- spring green (palest green) -->
+        <item>#A6AD3C</item><!-- fuji green -->
+
+    </string-array>
+
+</resources>

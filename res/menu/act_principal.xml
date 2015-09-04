@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ayalamart.appcliente.ActPrincipal" >
+
+    <item
+        android:id="@+id/acerca_de_sett"
+        android:orderInCategory="2"
+        android:title="@string/acerca_de_but"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_sett"
+        android:orderInCategory="1"
+        android:title="@string/nuestro_menu"
+        app:showAsAction="never"/>
+    <!-- android:onClick="@+id/acerca_de" -->
+    <item
+        android:id="@+id/donde_estamos_sett"
+        android:orderInCategory="3"
+        android:title="@string/donde_estamos_but"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/mi_cuenta_sett"
+        android:orderInCategory="4"
+        android:title="@string/mi_cuenta_but"
+        app:showAsAction="never"/>
+
+</menu>
