@@ -11,6 +11,9 @@
     <permission
         android:name="com.ayalamart.appcliente.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+    <permission
+        android:name="com.ayalamart.appcliente.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <uses-permission android:name="com.ayalamart.appcliente.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,6 +24,10 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="com.ayalamart.appcliente.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -39,10 +46,16 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBFtaBJ6Sqikm7rJzruK2p3Y-N2vDvHubA" />
+            android:value="AIzaSyD1lKJNAnyJL_p79DpID7v4tn_E4crGlBM " />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="onMessageOpen"
+            android:value="com.ayalamart.appcliente.MessageActivity" />
 
         <activity
-            android:name=".Act_login"
+            android:name="com.ayalamart.appcliente.Act_login"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -52,34 +65,56 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Act_Mapa"
+            android:name="com.ayalamart.appcliente.Act_Mapa"
             android:label="@string/title_activity_act__mapa"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Act_acercade"
+            android:name="com.ayalamart.appcliente.Act_acercade"
             android:label="@string/title_activity_act_acercade"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ActPrincipal"
+            android:name="com.ayalamart.appcliente.ActPrincipal"
             android:label="@string/title_activity_act__ppal"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Act_Signup"
+            android:name="com.ayalamart.appcliente.Act_Signup"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Act_Micuenta"
+            android:name="com.ayalamart.appcliente.Act_Micuenta"
             android:label="@string/title_activity_act__micuenta"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Act_Menu_2"
+            android:name="com.ayalamart.appcliente.Act_Menu_2"
             android:label="@string/title_activity_act__menu"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.ayalamart.push.MessageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+        </activity>
+        <activity
+            android:name="com.ayalamart.appcliente.ActPush"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <receiver
+            android:name="com.shephertz.app42.push.plugin.App42GCMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.ayalamart.appcliente.app42Sample" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.shephertz.app42.push.plugin.App42GCMService" >
+        </service>
     </application>
 
 </manifest>

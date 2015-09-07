@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import com.ayalamart.helper.GestionSesionesUsuario;
 import com.google.android.gms.fitness.data.Session;
+import com.shephertz.app42.push.plugin.App42GCMController;
+import com.shephertz.app42.push.plugin.App42GCMService;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -27,6 +29,7 @@ public class Act_login extends AppCompatActivity {
 	private TextView signUpTextView;
 	GestionSesionesUsuario sesion;
 
+	
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -105,4 +108,8 @@ public class Act_login extends AppCompatActivity {
 		}
 		return false; 
 	}
+
+	
+
+
 }

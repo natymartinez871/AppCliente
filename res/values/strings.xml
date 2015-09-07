@@ -44,6 +44,8 @@
     <string name="title_activity_act__menu_3">Act_Menu_3</string>
     <string name="title_activity_act_push">ActPush</string>
     <string name="texttblabel_cedula">Cédula</string>
+    <string name="texttblabel_nombre">Nombres</string>
+    <string name="texttblabel_apellido">Apellidos</string>
     <string name="texttblabel_correo">Correo Electrónico</string>
     <string name="texttblabel_telefono">"Teléfono "</string>
     <string name="datos_personales_str">Información personal</string>

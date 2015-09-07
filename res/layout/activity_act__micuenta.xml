@@ -46,29 +46,46 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-
-                    <AutoCompleteTextView
-                        android:id="@+id/mc_nombre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="#ffffffff" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/mc_apellido"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="#ffffffff" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tblabel_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:text="@string/texttblabel_nombre"
+                    android:textColor="#ffffffff" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/mc_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff" >
+                </AutoCompleteTextView>
+
+                <TextView
+                    android:id="@+id/tblabel_apellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:text="@string/texttblabel_apellido"
+                    android:textColor="#ffffffff" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/mc_apellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ffffffff" />
 
                 <TextView
                     android:id="@+id/tblabel_cedula"
