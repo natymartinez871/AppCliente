@@ -25,6 +25,7 @@ public class Act_Micuenta extends AppCompatActivity {
 	String mCurrentPhotoPath;
 	GestionSesionesUsuario sesion;
 	private AutoCompleteTextView nombreusuarioTV; 
+	private AutoCompleteTextView apellidousuarioTV; 
 	private AutoCompleteTextView cedulausuarioTV;
 	private AutoCompleteTextView correousuarioTV; 
 	private AutoCompleteTextView telefonousuarioTV; 
@@ -42,17 +43,20 @@ public class Act_Micuenta extends AppCompatActivity {
 			String name = usuario.get(GestionSesionesUsuario.KEY_NAME); 
 			String email = usuario.get(GestionSesionesUsuario.KEY_EMAIL); 
 			String nombre = usuario.get(GestionSesionesUsuario.nombre); 
+			String apellido = usuario.get(GestionSesionesUsuario.apellido); 
 			String correo = usuario.get(GestionSesionesUsuario.correo); 
 			String telefono = usuario.get(GestionSesionesUsuario.telefono); 
 			String cedula = usuario.get(GestionSesionesUsuario.cedula); 
 
 			nombreusuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_nombre); 
+			apellidousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_apellido); 
 			cedulausuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_cedula); 
 			correousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_correo); 
 			telefonousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_telefono);
 			cedulausuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_cedula); 
 
 			nombreusuarioTV.setText(nombre);
+			apellidousuarioTV.setText(apellido);
 			cedulausuarioTV.setText(correo);
 			correousuarioTV.setText(correo);
 			telefonousuarioTV.setText(telefono);
@@ -71,11 +75,12 @@ public class Act_Micuenta extends AppCompatActivity {
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
 				final String nombre_act =  nombreusuarioTV.getText().toString();
+				final String apellido_act = apellidousuarioTV.getText().toString();
 				final String correo_act = correousuarioTV.getText().toString();
 				final String telefono_act = telefonousuarioTV.getText().toString();
 				final String cedula_act = cedulausuarioTV.getText().toString();
 
-				sesion.crearSesionUSuario(name, email, nombre_act, cedula_act, correo_act, telefono_act);
+				sesion.crearSesionUSuario(name, email, nombre_act, apellido_act, cedula_act, correo_act, telefono_act);
 
 				Toast errorprueba_1 = Toast.makeText(getApplicationContext(), "Cuenta actualizada con éxito", Toast.LENGTH_SHORT); 
 				errorprueba_1.show();

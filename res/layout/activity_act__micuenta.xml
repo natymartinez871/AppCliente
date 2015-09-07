@@ -43,19 +43,32 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
 
-                <AutoCompleteTextView
-                    android:id="@+id/mc_nombre"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="#ffffffff" >
+                    android:layout_height="wrap_content" >
 
-                    <requestFocus />
-                </AutoCompleteTextView>
+                    <AutoCompleteTextView
+                        android:id="@+id/mc_nombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="#ffffffff" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mc_apellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="#ffffffff" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tblabel_cedula"
@@ -99,9 +112,9 @@
                     android:id="@+id/tblabel_telefono"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:alpha="0.5"
                     android:text="@string/texttblabel_telefono"
-                    android:textColor="#ffffffff" 
-                    android:alpha="0.5"/>
+                    android:textColor="#ffffffff" />
 
                 <AutoCompleteTextView
                     android:id="@+id/mc_telefono"

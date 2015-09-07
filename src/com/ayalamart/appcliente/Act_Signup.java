@@ -20,6 +20,7 @@ public class Act_Signup extends Activity {
 	private EditText contrasena; 
 	private EditText conf_contrasena; 
 	private EditText nombre;
+	private EditText apellido; 
 	private EditText cedula;
 	private EditText correo;
 	private EditText telefono;
@@ -32,6 +33,7 @@ public class Act_Signup extends Activity {
 		sesion = new GestionSesionesUsuario(getApplicationContext()); 
 
 		nombre = (EditText)findViewById(R.id.nombre_signup); 
+		apellido = (EditText)findViewById(R.id.apellido_signup);
 		cedula = (EditText)findViewById(R.id.cedula_signup); 
 		correo = (EditText)findViewById(R.id.email_signup); 
 		telefono = (EditText)findViewById(R.id.telefono_signup); 
@@ -51,6 +53,7 @@ public class Act_Signup extends Activity {
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
 				final String nombre_str = nombre.getText().toString(); 
+				final String apellido_str = apellido.getText().toString();
 				final String cedula_str = cedula.getText().toString(); 
 				final String correo_str = correo.getText().toString(); 
 				final String telefono_str = telefono.getText().toString();
@@ -81,7 +84,7 @@ public class Act_Signup extends Activity {
 							mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
 							mensaje_error.setText(match);
 							
-							sesion.crearSesionUSuario(name, email, nombre_str, cedula_str, correo_str, telefono_str);
+							sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str);
 							
 							//					aqui deberia colocar la transicion de que logro registrarse 
 							Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
@@ -131,5 +134,7 @@ public class Act_Signup extends Activity {
 		}
 		return false; 
 	}
+	
+
 
 }

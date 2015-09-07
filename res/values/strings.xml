@@ -24,12 +24,14 @@
     <string name="action_sign_in">INICIAR SESIÓN</string>
     <string name="acion_sign_up">REGISTRARSE</string>
     <string name="nombre_usuario"></string>
+    <string name="apellido_usuario"></string>
     <string name="cedula_usuario"></string>
     <string name="password_confirm">Confirme su contraseña</string>
     <string name="confirmar_contrasena_signup"></string>
     <string name="telefono_signup">Teléfono móvil</string>
     <string name="but_iniciar_sesion">Iniciar Sesión</string>
-    <string name="nombre_usuario_hint">Nombre y Apellido</string>
+    <string name="nombre_usuario_hint">Nombres</string>
+    <string name="apellido_usuario_hint">Apellidos</string>
     <string name="cedula_usuario_hint">Cédula</string>
     <string name="contrasena_signup"></string>
     <string name="contrasena_signup_hint">Contraseña</string>
@@ -44,5 +46,6 @@
     <string name="texttblabel_cedula">Cédula</string>
     <string name="texttblabel_correo">Correo Electrónico</string>
     <string name="texttblabel_telefono">"Teléfono "</string>
+    <string name="datos_personales_str">Información personal</string>
 
 </resources>

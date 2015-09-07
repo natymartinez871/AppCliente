@@ -53,7 +53,7 @@ public class Act_login extends AppCompatActivity {
 
 		Button button_login = (Button)findViewById(R.id.email_sign_in_button); 		
 		button_login.setOnClickListener(new OnClickListener() {
-
+			
 			@Override
 			public void onClick(View v) {
 				final String email_str = email.getText().toString();
@@ -63,22 +63,16 @@ public class Act_login extends AppCompatActivity {
 				if (validarCorreo(email_str)) {
 					if (validarPassword(password_str)) {			
 						sesion.getDetallesUsuario(); 
-						
 						sesion.iniciarSesionUsuario("nombre en la bd", email_str);
 						Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
 						intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 						intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 						startActivity(intent_ppal);
 						finish(); 
-
-						//						Toast inicio_sesion = Toast.makeText(getApplicationContext(), "Inició sesión", Toast.LENGTH_SHORT);
-						//						inicio_sesion.show();
-
 					}
 					else {
 						password.setError(getString(R.string.invalid_password));
 						focusView = password; 
-
 					}
 				}
 				else {
@@ -86,16 +80,17 @@ public class Act_login extends AppCompatActivity {
 				}
 			}
 		});
-
 		signUpTextView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent_signup = new Intent(getApplicationContext(), Act_Signup.class); 
+				intent_signup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+				intent_signup.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 				startActivity(intent_signup);
+				finish(); 
 			}
 		});
 	}
-
 	private boolean validarCorreo (String correo_str){
 		String PATRON_CORREO = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; 
@@ -110,17 +105,4 @@ public class Act_login extends AppCompatActivity {
 		}
 		return false; 
 	}
-
-	//	@Override
-	//	public void onBackPressed() {
-	//		super.onBackPressed();
-	//
-	//		Toast no_habilitado = Toast.makeText(getApplicationContext(), "Aqui presionó backbutton" , Toast.LENGTH_SHORT);
-	//		no_habilitado.show();
-	//
-	//		this.finish();
-	//
-	//	}
-
-
 }

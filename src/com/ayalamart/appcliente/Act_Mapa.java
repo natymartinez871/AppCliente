@@ -28,12 +28,9 @@ public class Act_Mapa extends FragmentActivity {
 		mapa.addMarker(new MarkerOptions().position(new LatLng(
 				10.467631, -66.829654)).title("Tessie's Restaurant"));
 		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(TESSIES, 15));
-
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.act__mapa, menu);
 		return true;
 	}
@@ -41,9 +38,7 @@ public class Act_Mapa extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.acerca_de_sett) {
 			Intent intent_acercade = new Intent(getApplicationContext(), Act_acercade.class);

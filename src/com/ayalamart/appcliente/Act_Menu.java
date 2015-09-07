@@ -1,31 +1,19 @@
 package com.ayalamart.appcliente;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.ayalamart.app.Net_menu;
-import com.ayalamart.helper.Platos_menu;
-import com.ayalamart.helper.SwipeListAdapter;
-
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
 
 
 
 public class Act_Menu extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-	private String TAG = Act_Menu.class.getSimpleName(); 
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*private String TAG = Act_Menu.class.getSimpleName(); 
 	private String URL_PLATOS = "http://api.androidhive.info/json/imdb_top_250.php?offset="; 
 	private SwipeRefreshLayout swiperefreshLayout; 
 	private ListView listview; 
@@ -59,14 +47,14 @@ public class Act_Menu extends AppCompatActivity implements SwipeRefreshLayout.On
 
 	}
 
-	/*	@Override
+		@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.act__menu, menu);
 		return true;
 	}
-	 */
-	/*	@Override
+	 
+		@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -77,7 +65,7 @@ public class Act_Menu extends AppCompatActivity implements SwipeRefreshLayout.On
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	 */
+	 
 	@Override
 	public void onRefresh() {
 		fetchPlatos(); 
@@ -126,5 +114,5 @@ public class Act_Menu extends AppCompatActivity implements SwipeRefreshLayout.On
 			}
 		}); 
 		Net_menu.getInstance().addToRequestQueue(req);
-	}	
+	}	*/
 }

@@ -2,8 +2,6 @@ package com.ayalamart.appcliente;
 
 import com.ayalamart.helper.GestionSesionesUsuario;
 
-import android.accounts.Account;
-import android.accounts.OnAccountsUpdateListener;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +19,7 @@ public class ActPrincipal extends AppCompatActivity {
 	private TextView cerrarsesionTextview;
 	GestionSesionesUsuario sesion; 
 	private View progView;
-	
+
 
 
 	@Override
@@ -77,7 +74,7 @@ public class ActPrincipal extends AppCompatActivity {
 			}
 		});
 
-		cerrarsesionTextview = (TextView)findViewById(R.id.cerrarsesion); 
+		cerrarsesionTextview = (TextView)findViewById(R.id.tv_cerrarsesion); 
 		cerrarsesionTextview.setPaintFlags(cerrarsesionTextview.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		Linkify.addLinks(cerrarsesionTextview, Linkify.ALL);
 
@@ -89,16 +86,19 @@ public class ActPrincipal extends AppCompatActivity {
 				sesion.cerrarSesionUsuario();
 			}
 		});
-		
+
 		Button button_menu = (Button)findViewById(R.id.but_menu); 
 		button_menu.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent_menu = new Intent(getApplicationContext(), Act_Menu_2.class);
 				startActivity(intent_menu);
 			}
 		});
+
+
+
 	}
 
 	@Override
@@ -134,4 +134,12 @@ public class ActPrincipal extends AppCompatActivity {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		if(sesion.estaLogeadoelUsuario()){
+			finish(); 
+		}
+	}
 }
