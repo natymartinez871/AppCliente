@@ -94,7 +94,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ayalamart.push.MessageActivity"
+            android:name="com.ayalamart.appcliente.MessageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity

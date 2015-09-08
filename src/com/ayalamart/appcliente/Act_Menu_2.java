@@ -29,11 +29,11 @@ public class Act_Menu_2 extends Activity {
 		
 	//	ListView lv_menu = (ListView)findViewById(R.id.LV_menu); 
 		ArrayList<Platos> arraydePlatos = new ArrayList<Act_Menu_2.Platos>(); 
-		final PlatosAdapter adapter = new PlatosAdapter(getApplicationContext(), arraydePlatos);
+//		final PlatosAdapter adapter = new PlatosAdapter(getApplicationContext(), arraydePlatos);
 		
 	//	lv_menu.setAdapter(adapter);
-		Platos newPlato = new Platos("hamburguesa", "skjfhaksdjfbkasjdfbkajdsbfkajdsbfkjdbf"); 
-		adapter.add(newPlato);
+//		Platos newPlato = new Platos("hamburguesa", "skjfhaksdjfbkasjdfbkajdsbfkajdsbfkjdbf"); 
+//		adapter.add(newPlato);
 
 		
 		swiperefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -99,7 +99,7 @@ public class Act_Menu_2 extends Activity {
 		}
 
 	}
-	public class PlatosAdapter extends ArrayAdapter<Platos>{
+/*	public class PlatosAdapter extends ArrayAdapter<Platos>{
 		public PlatosAdapter(Context context, ArrayList<Platos> plato){
 			super(context, 0, plato); 
 		}
@@ -123,7 +123,7 @@ public class Act_Menu_2 extends Activity {
 			
 			 
 		}
-	}
+	}*/
 
 }
 

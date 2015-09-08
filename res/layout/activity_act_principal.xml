@@ -25,6 +25,14 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prueba push" 
+            android:visibility="gone"/>
+
         <ScrollView
             android:id="@+id/act_pal_form"
             android:layout_width="match_parent"

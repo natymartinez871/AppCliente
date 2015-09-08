@@ -4,16 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.ayalamart.helper.GestionSesionesUsuario;
-import com.google.android.gms.fitness.data.Session;
-import com.shephertz.app42.push.plugin.App42GCMController;
-import com.shephertz.app42.push.plugin.App42GCMService;
 
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
