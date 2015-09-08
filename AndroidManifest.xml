@@ -93,10 +93,7 @@
             android:label="@string/title_activity_act__menu"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name="com.ayalamart.appcliente.MessageActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
-        </activity>
+       
         <activity
             android:name="com.ayalamart.appcliente.ActPush"
             android:screenOrientation="portrait" >
