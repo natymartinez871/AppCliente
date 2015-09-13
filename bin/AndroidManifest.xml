@@ -38,6 +38,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="com.ayalamart.appcliente.AppController"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -89,7 +90,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ayalamart.appcliente.Act_Menu_2"
+            android:name="com.ayalamart.appcliente.Act_Menu"
             android:label="@string/title_activity_act__menu"
             android:screenOrientation="portrait" >
         </activity>

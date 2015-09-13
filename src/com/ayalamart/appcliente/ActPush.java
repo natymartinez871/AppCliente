@@ -24,7 +24,7 @@ public class ActPush extends Activity{
 
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_push_prueba);
+		//setContentView(R.layout.act_push_prueba);
 		
 		App42API.initialize(
 				this,

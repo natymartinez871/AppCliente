@@ -126,7 +126,7 @@ public class ActPrincipal extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent_menu = new Intent(getApplicationContext(), Act_Menu_2.class);
+				Intent intent_menu = new Intent(getApplicationContext(), Act_Menu.class);
 				startActivity(intent_menu);
 			}
 		});
