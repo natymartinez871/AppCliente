@@ -12,16 +12,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.ayalamart.adapter.CustomListAdapter;
+import com.ayalamart.adapter.CustomListAdapter.BtnClickListener;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class Act_Menu extends Activity{
 	
@@ -33,6 +32,7 @@ public class Act_Menu extends Activity{
 	 private CustomListAdapter adapter; 
 	 private ListView listView; 
 	 private int j; 
+	 private TextView total; 
 	 
 	 @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,24 @@ public class Act_Menu extends Activity{
 		setContentView(R.layout.activity_act__menu);
 		
 		listView = (ListView)findViewById(R.id.LV_menu); 
-		adapter = new CustomListAdapter(this, listaPlato); 
+		adapter = new CustomListAdapter(this, listaPlato, new BtnClickListener() {
+			
+			@Override
+			public void onBtnClick(int position) {
+				
+				Plato plato = new Plato(); 
+				j = plato.getPrecio(); 
+				String k = total.getText().toString(); 
+				if (k != "00") {
+					int l = Integer.parseInt(k); 
+					j = j + l; 
+					total.setText(j);
+				}
+				else{
+					total.setText(k);
+				}
+			}
+		}); 
 		listView.setAdapter(adapter);
 		
 		pDialog = new ProgressDialog(this); 
