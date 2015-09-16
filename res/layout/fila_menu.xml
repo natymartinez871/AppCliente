@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/descrip_plato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tit_plato"
+        android:layout_below="@+id/tit_plato"
+        android:layout_toLeftOf="@+id/agr_al_carrito_but"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nisl urna, at lobortis dolor egestas id."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tit_plato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toLeftOf="@+id/agr_al_carrito_but"
+        android:text="Hamburguesa"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp" />
+
+    <!-- <ImageView -->
+    <!-- android:id="@+id/imageView1" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentLeft="true" -->
+    <!-- android:layout_alignTop="@+id/textView2" -->
+    <!-- android:layout_marginLeft="29dp" -->
+    <!-- android:src="@drawable/ic_stat_gcm" /> -->
+
+    <Button
+        android:id="@+id/agr_al_carrito_but"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Agregar"
+        android:textSize="10dp"
+        android:onClick="agregarHandler" />
+
+    <TextView
+        android:id="@+id/precio_plato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/descrip_plato"
+        android:text="Bs. XXXX,XX"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
