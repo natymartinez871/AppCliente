@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/thumbnail"
         android:layout_toLeftOf="@+id/agr_al_carrito_but"
+        android:layout_toRightOf="@+id/thumbnail"
         android:text="Hamburguesa"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -49,8 +49,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Agregar"
-        android:textSize="10dp"
-        android:onClick="agregarHandler" />
+        android:textSize="10dp" />
+    <!-- android:onClick="agregarHandler" -->
 
     <TextView
         android:id="@+id/precio_plato"

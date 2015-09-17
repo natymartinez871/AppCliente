@@ -94,11 +94,6 @@
             android:label="@string/title_activity_act__menu"
             android:screenOrientation="portrait" >
         </activity>
-       
-        <activity
-            android:name="com.ayalamart.appcliente.ActPush"
-            android:screenOrientation="portrait" >
-        </activity>
 
         <receiver
             android:name="com.shephertz.app42.push.plugin.App42GCMReceiver"

@@ -72,19 +72,6 @@ public class ActPrincipal extends AppCompatActivity {
 			}
 		});
 
-		Button button_pruebapush = (Button)findViewById(R.id.button1);
-		button_pruebapush.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent_pruebapush = new Intent(getApplicationContext(), ActPush.class); 
-				startActivity(intent_pruebapush);
-
-			}
-		});
-
-
-
 
 		Button button_acercade = (Button) findViewById(R.id.but_acercade);
 		button_acercade.setOnClickListener(new OnClickListener() {
