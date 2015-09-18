@@ -33,8 +33,6 @@ public class ActPrincipal extends AppCompatActivity {
 	private static final String GoogleProjectNo = "913405012262";
 
 
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
