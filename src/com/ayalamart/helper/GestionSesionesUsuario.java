@@ -2,12 +2,24 @@ package com.ayalamart.helper;
 
 import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.ayalamart.appcliente.Act_Menu;
 import com.ayalamart.appcliente.Act_login;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
+import android.widget.Toast;
 
 public class GestionSesionesUsuario {
 
@@ -15,6 +27,9 @@ public class GestionSesionesUsuario {
 	Editor editor_ap; 
 	Context context_ap;
 	int PRIVATE_MODE = 0; 
+	final String url_cl = "http://192.168.0.103:8080/Restaurante/createCliente"; 
+	private static final String TAG = GestionSesionesUsuario.class.getSimpleName(); 
+
 
 	private static final String PREFER_NAME = "AndroidPrueba"; 
 	private static final String USUARIO_LOGGEADO = "EstaLogeadoelUsuario"; 
@@ -43,52 +58,103 @@ public class GestionSesionesUsuario {
 		editor_ap.putString(cedula, cedula_str); 
 		editor_ap.putString(correo, correo_str);
 		editor_ap.putString(telefono, telefono_str); 
-//		editor_ap.putString(contrasena, contrasena_str);	
-		editor_ap.commit(); 		
-	}
-	public void iniciarSesionUsuario(String name, String email){
-		editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
-		editor_ap.putString(PREFER_NAME, name); 
-		editor_ap.putString(KEY_EMAIL, email); 
+		//		editor_ap.putString(contrasena, contrasena_str);	
 		editor_ap.commit(); 
-	}
 
-	public boolean verificarLogin(){
-		if (!this.estaLogeadoelUsuario()) {
+
+		try {
+			final JSONObject jsonBody = new JSONObject();
+			jsonBody.put("nomCliente", nombre); 
+			jsonBody.put("apeCliente", apellido); 
+			jsonBody.put("cedCliente", cedula); 
+			jsonBody.put("telcliente", telefono);  
+			jsonBody.put("emailCliente", correo); 
+			jsonBody.put("estatus", "1");
+			jsonBody.put("passCliente", "1234"); 
+			jsonBody.put("idCliente", " "); 
+			
+			Log.d(TAG, "VARIABLES INICIALIZADAS EN JSONBODY"); 
+	
+			new JsonObjectRequest(url_cl, jsonBody, new Listener<JSONObject>() {
+
+				
+				@Override
+				public void onResponse(JSONObject response) {
+				
+					String resultado = response.toString(); 
+					if (resultado != "true") {
+						
+						Log.d(TAG, "No recibió respuesta del server"); 
+						//colocar aviso de que no se recibio respuesta del servidor
+					}
+					else{
+						Log.d(TAG, "Se recibió respuesta del server"); 
+					}
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error){
+				Log.d(TAG, "Error no" + error.getMessage()); 
+				
+						
+					}
+				}); 
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+				Log.d(TAG, "ERROR EN VOLLEY/JSON"); 
+			} 
+
+
+		}
+		public void iniciarSesionUsuario(String name, String email){
+			editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
+			editor_ap.putString(PREFER_NAME, name); 
+			editor_ap.putString(KEY_EMAIL, email); 
+			editor_ap.commit(); 
+		}
+
+		public boolean verificarLogin(){
+			if (!this.estaLogeadoelUsuario()) {
+				Intent i_login = new Intent(context_ap, Act_login.class); 
+				i_login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+				i_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+				context_ap.startActivity(i_login);
+				return true; 
+			}
+			return false;
+		}
+
+		public HashMap<String, String> getDetallesUsuario() {
+			HashMap<String, String> usuario = new HashMap<String, String>();
+			usuario.put(KEY_NAME, pref_ap.getString(KEY_NAME, null)); 
+			usuario.put(KEY_EMAIL, pref_ap.getString(KEY_EMAIL, null)); 
+			usuario.put(nombre, pref_ap.getString(nombre, null)); 
+			usuario.put(apellido, pref_ap.getString(apellido, null));
+			usuario.put(cedula, pref_ap.getString(cedula, null));
+			usuario.put(correo, pref_ap.getString(correo, null));
+			usuario.put(telefono, pref_ap.getString(telefono, null));
+			usuario.put(contrasena, pref_ap.getString(contrasena, null));		
+			return usuario; 
+		}
+
+		public void cerrarSesionUsuario(){
+			editor_ap.clear(); 
+			editor_ap.commit(); 
+
 			Intent i_login = new Intent(context_ap, Act_login.class); 
 			i_login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 			i_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context_ap.startActivity(i_login);
-			return true; 
 		}
-		return false;
+
+		public boolean estaLogeadoelUsuario(){
+			return pref_ap.getBoolean(USUARIO_LOGGEADO, false); 
+		}
+
+		public void llenarObjCliente(){
+
+
+		}
+
 	}
-
-	public HashMap<String, String> getDetallesUsuario() {
-		HashMap<String, String> usuario = new HashMap<String, String>();
-		usuario.put(KEY_NAME, pref_ap.getString(KEY_NAME, null)); 
-		usuario.put(KEY_EMAIL, pref_ap.getString(KEY_EMAIL, null)); 
-		usuario.put(nombre, pref_ap.getString(nombre, null)); 
-		usuario.put(apellido, pref_ap.getString(apellido, null));
-		usuario.put(cedula, pref_ap.getString(cedula, null));
-		usuario.put(correo, pref_ap.getString(correo, null));
-		usuario.put(telefono, pref_ap.getString(telefono, null));
-		usuario.put(contrasena, pref_ap.getString(contrasena, null));		
-		return usuario; 
-	}
-
-	public void cerrarSesionUsuario(){
-		editor_ap.clear(); 
-		editor_ap.commit(); 
-
-		Intent i_login = new Intent(context_ap, Act_login.class); 
-		i_login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-		i_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-		context_ap.startActivity(i_login);
-	}
-
-	public boolean estaLogeadoelUsuario(){
-		return pref_ap.getBoolean(USUARIO_LOGGEADO, false); 
-	}
-
-}

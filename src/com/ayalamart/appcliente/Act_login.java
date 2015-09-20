@@ -97,6 +97,13 @@ public class Act_login extends AppCompatActivity {
 		Pattern patron = Pattern.compile(PATRON_CORREO); 
 		Matcher correlacionador = patron.matcher(correo_str); 
 		return correlacionador.matches();	
+		
+		
+		
+		
+		
+		
+		
 	}
 	private boolean validarPassword (String contrasena_str){
 		if (contrasena_str != null && contrasena_str.length() > 5 ){

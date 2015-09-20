@@ -45,7 +45,7 @@ public class Act_Menu extends Activity{
 			@Override
 			public void onBtnClick(int position) {
 				
-				Plato plato = new Plato(); 
+			/*	Plato plato = new Plato(); 
 				j = plato.getPrecio(); 
 				String k = total.getText().toString(); 
 				if (k != "00") {
@@ -55,7 +55,7 @@ public class Act_Menu extends Activity{
 				}
 				else{
 					total.setText(k);
-				}
+				}*/
 			}
 		}); 
 		listView.setAdapter(adapter);
