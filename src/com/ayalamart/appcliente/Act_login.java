@@ -102,6 +102,9 @@ public class Act_login extends AppCompatActivity {
 						            String idcliente = response.getString("idCliente");
 						            String telefono = response.getString("telCliente");
 						            String clave = response.getString("passCliente");
+						            if(status.equals("0")){
+						            	Toast.makeText(getApplicationContext(), "Su usuario se encuentra inhabilitado", Toast.LENGTH_SHORT).show(); 
+						            }
 						            
 						            if (clave.equals(password_str)) {
 						            	sesion.crearSesionUSuario(nombre, correo, nombre, apellido, cedula, correo, telefono);
