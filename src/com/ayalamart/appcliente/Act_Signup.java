@@ -37,12 +37,12 @@ public class Act_Signup extends Activity {
 	GestionSesionesUsuario sesion; 
 	private ProgressDialog pDialog;
 	String urlCrearCliente = "http://192.168.0.103:8080/Restaurante/rest/createCliente"; 
-	 private static String TAG = Act_Signup.class.getSimpleName();
-	
+	private static String TAG = Act_Signup.class.getSimpleName();
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act_signup);
-		
+
 		sesion = new GestionSesionesUsuario(getApplicationContext()); 
 
 		nombre = (EditText)findViewById(R.id.nombre_signup); 
@@ -52,6 +52,10 @@ public class Act_Signup extends Activity {
 		telefono = (EditText)findViewById(R.id.telefono_signup); 
 		contrasena = (EditText)findViewById(R.id.contrasena_signup); 
 		conf_contrasena = (EditText)findViewById(R.id.et_confirm_contrasena);
+		
+		pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Por favor espere...");
+        pDialog.setCancelable(false);
 
 		//declarando el mensaje de error, y colocandole el mismo color de fondo para esconderlo 
 		final TextView mensaje_error = (TextView)findViewById(R.id.alerta_contr_no_match); 
@@ -63,6 +67,8 @@ public class Act_Signup extends Activity {
 			@Override
 			public void onClick(View v) {	
 
+				Log.d(TAG, "PRESIONADO EL BOTÓN"); 
+
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
 				final String nombre_str = nombre.getText().toString(); 
@@ -72,94 +78,85 @@ public class Act_Signup extends Activity {
 				final String telefono_str = telefono.getText().toString();
 				final String contrasena_str = contrasena.getText().toString(); 
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
-				
-				JSONObject cliente_nuevo = null; 
-				
-				try {
-					cliente_nuevo.put("apeCliente", apellido_str);
-					cliente_nuevo.put("cedCliente", cedula_str);
-					cliente_nuevo.put("emailCliente", correo_str); 
-					cliente_nuevo.put("estatus", "1"); 
-					cliente_nuevo.put("idCliente", new Long(0)); 
-					cliente_nuevo.put("nomCliente", nombre_str); 
-					cliente_nuevo.put("passCliente", correo_str);
-					cliente_nuevo.put("telCliente", telefono_str); 
-					
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				} 
-				
-				
-				if (validarDatos(nombre_str, cedula_str, correo_str, telefono_str)) {
-					if (validarPassword(contrasena_str)) {
-						//si el password es valido, entra al siguiente ciclo 
 
-						if (!contrasena_str.equals(conf_contrasena_str)) {
+				pDialog.show();
+
+
+
+				if (validarCorreo(correo_str)) {
+					if (validarDatos(nombre_str, cedula_str, correo_str, telefono_str)) {
+						if (validarPassword(contrasena_str)) {
+							//si el password es valido, entra al siguiente ciclo 
+
+							if (contrasena_str.equals(conf_contrasena_str)) {
+
+								String match = " ";
+								mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
+								mensaje_error.setText(match);
+								Long idcliente = new Long(0); 
+								String json = "{"+"apeCliente"+":"+apellido_str+","+"cedCliente"+":"+cedula_str+","+
+										"emailCliente"+":"+correo_str+","+"estatus"+":"+"1"+","+"idCliente"+":"+idcliente+","+
+										"nomCliente"+":"+nombre_str+","+"passCliente"+":"+contrasena_str+","+"telCliente"+":"+telefono_str+"}"; 
+			
+								JSONObject cliente_nuevo = null;
+								try {
+									cliente_nuevo = new JSONObject(json);
+									Log.d(TAG, "SE LLENÓ EL JSONOBJ"); 
+								} catch (JSONException e2) {
+
+									e2.printStackTrace();
+									Log.d(TAG, "ERROR DE JSON"); 
+								} 
 							
-							
-							String str_nomatch = "La contraseña no coincide";
-							mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
-							mensaje_error.setText(str_nomatch);
+
+								JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, 
+										urlCrearCliente, cliente_nuevo, null , new Response.ErrorListener() {
+									@Override
+									public void onErrorResponse(VolleyError error) {
+										VolleyLog.d(TAG, "Error: " + error.getMessage());
+										
+										Log.d(TAG, "Error: " + error.getMessage()); 
+										/*Toast.makeText(getApplicationContext(),
+												error.getMessage(), Toast.LENGTH_SHORT).show();
+										*/
+										// hide the progress dialog
+										hidepDialog();
+									}
+								});	
+								sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str);
+								Log.d(TAG, "LOGRO REGISTRARSE"); 
+								hidepDialog();
+								
+								Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
+								intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+								intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+								startActivity(intent_ppal);
+								finish(); 
+								// Adding request to request queue
+								AppController.getInstance().addToRequestQueue(jsonObjReq);	
+							}
+							else{
+
+								String str_nomatch = "La contraseña no coincide";
+								mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
+								mensaje_error.setText(str_nomatch);
+							}
 
 						}
+
 						else{
 
-							//si las dos contraseñas proporcionadas son iguales, se muestra un Toast
+							// si el password no es valido, entonces mostrara el error de password invalido. 
+							contrasena.setError("Contraseña invalida. Debe como mínimo 5 caracteres o ser no nula");
 
-
-							String match = " ";
-							mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
-							mensaje_error.setText(match);
-							
-							sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str);
-						
-							showpDialog();
-							
-							JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, 
-									urlCrearCliente, cliente_nuevo, new Response.Listener<JSONObject>() {
-							    
-								@Override
-							    public void onResponse(JSONObject response) {
-							        Log.d(TAG, response.toString());
-							        response.toString();
-							        hidepDialog();
-							    }
-							}, new Response.ErrorListener() {
-
-							    @Override
-							    public void onErrorResponse(VolleyError error) {
-							        VolleyLog.d(TAG, "Error: " + error.getMessage());
-							        Toast.makeText(getApplicationContext(),
-							                error.getMessage(), Toast.LENGTH_SHORT).show();
-							        // hide the progress dialog
-							        hidepDialog();
-							    }
-							});
-
-							// Adding request to request queue
-							AppController.getInstance().addToRequestQueue(jsonObjReq);
-
-							//					aqui deberia colocar la transicion de que logro registrarse 
-							Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
-							intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-							intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-							startActivity(intent_ppal);
-							finish(); 
 						}
-
-					}
-
-					else{
-
-						// si el password no es valido, entonces mostrara el error de password invalido. 
-						contrasena.setError("Contraseña invalida. Debe como mínimo 5 caracteres o ser no nula");
-
 					}
 				}
-
+				else {
+					correo.setError("Correo Inválido");
+				}
 			}
 		});
-
 	}
 
 	private boolean validarCorreo (String correo_str){
@@ -188,13 +185,13 @@ public class Act_Signup extends Activity {
 		return false; 
 	}
 	private void showpDialog() {
-	    if (!pDialog.isShowing())
-	        pDialog.show();
+		if (!pDialog.isShowing())
+			pDialog.show();
 	}
 
 	private void hidepDialog() {
-	    if (pDialog.isShowing())
-	        pDialog.dismiss();
+		if (pDialog.isShowing())
+			pDialog.dismiss();
 	}
-	
+
 }

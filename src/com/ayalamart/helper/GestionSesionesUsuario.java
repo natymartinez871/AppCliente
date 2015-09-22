@@ -27,7 +27,6 @@ public class GestionSesionesUsuario {
 	Editor editor_ap; 
 	Context context_ap;
 	int PRIVATE_MODE = 0; 
-	final String url_cl = "http://192.168.0.103:8080/Restaurante/createCliente"; 
 	private static final String TAG = GestionSesionesUsuario.class.getSimpleName(); 
 
 
@@ -60,51 +59,6 @@ public class GestionSesionesUsuario {
 		editor_ap.putString(telefono, telefono_str); 
 		//		editor_ap.putString(contrasena, contrasena_str);	
 		editor_ap.commit(); 
-
-
-		try {
-			final JSONObject jsonBody = new JSONObject();
-			jsonBody.put("nomCliente", nombre); 
-			jsonBody.put("apeCliente", apellido); 
-			jsonBody.put("cedCliente", cedula); 
-			jsonBody.put("telcliente", telefono);  
-			jsonBody.put("emailCliente", correo); 
-			jsonBody.put("estatus", "1");
-			jsonBody.put("passCliente", "1234"); 
-			jsonBody.put("idCliente", " "); 
-			
-			Log.d(TAG, "VARIABLES INICIALIZADAS EN JSONBODY"); 
-	
-			new JsonObjectRequest(url_cl, jsonBody, new Listener<JSONObject>() {
-
-				
-				@Override
-				public void onResponse(JSONObject response) {
-				
-					String resultado = response.toString(); 
-					if (resultado != "true") {
-						
-						Log.d(TAG, "No recibió respuesta del server"); 
-						//colocar aviso de que no se recibio respuesta del servidor
-					}
-					else{
-						Log.d(TAG, "Se recibió respuesta del server"); 
-					}
-					}
-				}, new Response.ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error){
-				Log.d(TAG, "Error no" + error.getMessage()); 
-				
-						
-					}
-				}); 
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-				Log.d(TAG, "ERROR EN VOLLEY/JSON"); 
-			} 
-
 
 		}
 		public void iniciarSesionUsuario(String name, String email){
