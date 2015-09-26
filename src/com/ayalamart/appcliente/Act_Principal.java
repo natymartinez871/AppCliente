@@ -25,15 +25,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActPrincipal extends AppCompatActivity {
+public class Act_Principal extends AppCompatActivity {
 	private TextView cerrarsesionTextview;
 	GestionSesionesUsuario sesion; 
 	private View progView;
 	String userName = null; 
 	private static final String GoogleProjectNo = "913405012262";
-
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +165,7 @@ public class ActPrincipal extends AppCompatActivity {
 	public void onStart() {
 		super.onStart();
 		if (App42GCMController.isPlayServiceAvailable(this)) {
-			App42GCMController.getRegistrationId(ActPrincipal.this,
+			App42GCMController.getRegistrationId(Act_Principal.this,
 					GoogleProjectNo);
 
 		} else {
@@ -215,7 +212,7 @@ public class ActPrincipal extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		//responseTv.setText("Registration Id on GCM--" + gcmRegId);
 		App42GCMController.storeRegistrationId(this, gcmRegId);
-		if(!App42GCMController.isApp42Registerd(ActPrincipal.this))
+		if(!App42GCMController.isApp42Registerd(Act_Principal.this))
 			App42GCMController.registerOnApp42(this, gcmRegId, App42API.getLoggedInUser());
 	}
 
@@ -234,7 +231,7 @@ public class ActPrincipal extends AppCompatActivity {
 			@Override
 			public void run() {
 				//responseTv.setText(responseMessage);
-				App42GCMController.saveRegisterationSuccess(ActPrincipal.this);
+				App42GCMController.saveRegisterationSuccess(Act_Principal.this);
 			}
 		});
 	}

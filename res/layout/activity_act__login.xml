@@ -17,8 +17,7 @@
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_height="90dp"
         android:gravity="center_vertical|center_horizontal" >
         
 
@@ -103,20 +102,12 @@
         </ScrollView>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll3"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:gravity="bottom|center_horizontal" >
-
-        <TextView
-            android:id="@+id/registrarse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="@string/registrarse_login"
-            android:textColor="#ffffffff" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/registrarse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="@string/registrarse_login"
+        android:textColor="#ffffffff" />
 
 </LinearLayout>

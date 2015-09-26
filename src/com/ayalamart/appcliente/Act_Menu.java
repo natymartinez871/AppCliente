@@ -13,6 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.ayalamart.adapter.CustomListAdapter;
 import com.ayalamart.adapter.CustomListAdapter.BtnClickListener;
+import com.ayalamart.helper.AppController;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
@@ -27,6 +28,7 @@ public class Act_Menu extends Activity{
 	private static final String TAG = Act_Menu.class.getSimpleName(); 
 	
 	private static String Url = "http://api.androidhive.info/json/movies.json"; 
+	private static String Url_pr = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll/"; 
 	 private ProgressDialog pDialog;
 	 private List<Plato> listaPlato = new ArrayList<Plato>(); 
 	 private CustomListAdapter adapter; 

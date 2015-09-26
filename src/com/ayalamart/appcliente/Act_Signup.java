@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionSesionesUsuario;
 
 import android.app.Activity;
@@ -36,7 +37,7 @@ public class Act_Signup extends Activity {
 	private EditText telefono;
 	GestionSesionesUsuario sesion; 
 	private ProgressDialog pDialog;
-	String urlCrearCliente = "http://192.168.0.103:8080/Restaurante/rest/createCliente"; 
+	String urlCrearCliente = "http://10.10.0.99:8080/Restaurante/rest/createCliente"; 
 	private static String TAG = Act_Signup.class.getSimpleName();
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class Act_Signup extends Activity {
 			@Override
 			public void onClick(View v) {	
 
-				Log.d(TAG, "PRESIONADO EL BOTÓN"); 
+				
 
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
@@ -101,7 +102,7 @@ public class Act_Signup extends Activity {
 								JSONObject cliente_nuevo = null;
 								try {
 									cliente_nuevo = new JSONObject(json);
-									Log.d(TAG, "SE LLENÓ EL JSONOBJ"); 
+									
 								} catch (JSONException e2) {
 
 									e2.printStackTrace();
@@ -127,7 +128,7 @@ public class Act_Signup extends Activity {
 								Log.d(TAG, "LOGRO REGISTRARSE"); 
 								hidepDialog();
 								
-								Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
+								Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 								intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 								intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 								startActivity(intent_ppal);
@@ -140,20 +141,21 @@ public class Act_Signup extends Activity {
 								String str_nomatch = "La contraseña no coincide";
 								mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
 								mensaje_error.setText(str_nomatch);
+								hidepDialog();
 							}
 
 						}
 
 						else{
-
 							// si el password no es valido, entonces mostrara el error de password invalido. 
 							contrasena.setError("Contraseña invalida. Debe como mínimo 5 caracteres o ser no nula");
-
+							hidepDialog();
 						}
 					}
 				}
 				else {
 					correo.setError("Correo Inválido");
+					hidepDialog();
 				}
 			}
 		});

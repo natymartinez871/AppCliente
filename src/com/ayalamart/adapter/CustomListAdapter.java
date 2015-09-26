@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.ayalamart.appcliente.AppController;
 import com.ayalamart.appcliente.R;
+import com.ayalamart.helper.AppController;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;

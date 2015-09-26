@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionSesionesUsuario;
 
 import android.app.ProgressDialog;
@@ -40,7 +41,7 @@ public class Act_login extends AppCompatActivity {
     private static String TAG = Act_login.class.getSimpleName();
 
     
-    String url = "http://192.168.0.103:8080/Restaurante/rest/getCliente/"; 
+    String url = "http://10.10.0.99:8080/Restaurante/rest/getCliente/"; 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,11 +59,11 @@ public class Act_login extends AppCompatActivity {
 		Toast.makeText(getApplicationContext(), "Status de Login de Usuario" + sesion.estaLogeadoelUsuario(), Toast.LENGTH_SHORT).show();
 		
 		pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Please wait...");
+        pDialog.setMessage("Porfavor espere...");
         pDialog.setCancelable(false);
         
 		if (sesion.estaLogeadoelUsuario()) {
-			Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
+			Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 			intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 			intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			startActivity(intent_ppal);
@@ -109,7 +110,7 @@ public class Act_login extends AppCompatActivity {
 						            if (clave.equals(password_str)) {
 						            	sesion.crearSesionUSuario(nombre, correo, nombre, apellido, cedula, correo, telefono);
 						            	
-						            	Intent intent_ppal = new Intent(getApplicationContext(), ActPrincipal.class); 
+						            	Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 										intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 										intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 										startActivity(intent_ppal);

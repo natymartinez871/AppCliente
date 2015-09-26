@@ -88,6 +88,7 @@ public class Act_Micuenta extends AppCompatActivity {
 			}
 		});
 
+		/*
 		ImageView fotousuario = (ImageView)findViewById(R.id.fotousuarioIV);
 		fotousuario.setOnClickListener(new OnClickListener() {
 
@@ -111,6 +112,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 			}
 		});
+		*/
 
 
 	}
