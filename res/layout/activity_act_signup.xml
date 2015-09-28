@@ -70,20 +70,32 @@
                     android:textColor="#ffffffff"
                     android:textColorHint="#ffffffff" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/cedula_signup"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:hint="@string/cedula_usuario_hint"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="@string/cedula_usuario"
-                    android:textColor="#ffffffff"
-                    android:textColorHint="#ffffffff" />
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/nacionalidad_spinner_singup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/cedula_signup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="@string/cedula_usuario_hint"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/cedula_usuario"
+                        android:textColor="#ffffffff"
+                        android:textColorHint="#ffffffff" />
+                </LinearLayout>
 
                 <AutoCompleteTextView
                     android:id="@+id/email_signup"
@@ -99,20 +111,33 @@
                     android:textColor="#ffffffff"
                     android:textColorHint="#ffffffff" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/telefono_signup"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:hint="@string/telefono_signup"
-                    android:imeOptions="actionNext"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:nextFocusDown="@+id/contrasena_signup"
-                    android:singleLine="true"
-                    android:textColor="#ffffffff"
-                    android:textColorHint="#ffffffff" />
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/operador_spinner_singup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textColor="#bf9b9c" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/telefono_signup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:hint="@string/telefono_signup"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/contrasena_signup"
+                        android:singleLine="true"
+                        android:textColor="#ffffffff"
+                        android:textColorHint="#ffffffff" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/contrasena_signup"

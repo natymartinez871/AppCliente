@@ -124,6 +124,7 @@
                         android:maxLines="1"
                         android:nextFocusDown="@+id/mc_correo"
                         android:singleLine="true"
+                        android:textColor="#ffffffff"
                         />
                 </LinearLayout>
 

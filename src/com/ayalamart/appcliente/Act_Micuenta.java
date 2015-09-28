@@ -30,8 +30,6 @@ import android.widget.Toast;
 
 public class Act_Micuenta extends AppCompatActivity {
 
-
-
 	private ProgressDialog pDialog;
 
 	private String URlJson; 

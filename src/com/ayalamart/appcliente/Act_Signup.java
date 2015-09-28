@@ -25,8 +25,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Act_Signup extends Activity {
@@ -39,6 +41,8 @@ public class Act_Signup extends Activity {
 	private EditText telefono;
 	GestionSesionesUsuario sesion; 
 	private ProgressDialog pDialog;
+	String Nac_doc;
+	 String OP_doc;
 	String urlCrearCliente = "http://10.10.0.99:8080/Restaurante/rest/createCliente"; 
 
 	private static String TAG = Act_Signup.class.getSimpleName();
@@ -65,13 +69,27 @@ public class Act_Signup extends Activity {
 		final TextView mensaje_error = (TextView)findViewById(R.id.alerta_contr_no_match); 
 		mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
 
+		final Spinner nac_spinner = (Spinner)findViewById(R.id.nacionalidad_spinner_singup); 
+		ArrayAdapter<CharSequence> adapter_nac = ArrayAdapter.createFromResource(getApplicationContext(), R.array.nacionalidades, android.R.layout.simple_spinner_item); 
+		adapter_nac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		nac_spinner.setAdapter(adapter_nac);
+		
+		final Spinner operador = (Spinner)findViewById(R.id.operador_spinner_singup); 
+		ArrayAdapter<CharSequence> adapter_op = ArrayAdapter.createFromResource(getApplicationContext(), R.array.operadores, android.R.layout.simple_spinner_item); 
+		adapter_op.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+		operador.setAdapter(adapter_op);
+		
 		Button button_signup = (Button) findViewById(R.id.but_signup);
 		button_signup.setOnClickListener(new OnClickListener() {		
+
+		
 
 			@Override
 			public void onClick(View v) {	
 
+				
 
+				
 
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
@@ -84,7 +102,32 @@ public class Act_Signup extends Activity {
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
 
 
-
+				String dato_nac = nac_spinner.getSelectedItem().toString(); 
+				Log.d(TAG, dato_nac); 
+				final String datov = "V-"; 
+				if (dato_nac.equals(datov))
+				{	Nac_doc = "V-"; }
+				else { Nac_doc = "E-"; }
+				
+				String dato_op = operador.getSelectedItem().toString(); 
+				
+				if (dato_op.equals("0416")) 
+					OP_doc = "0416"; 
+					else if (dato_op.equals("0412")) {
+					OP_doc = "0412"; 	
+					}else if (dato_op.equals("0414")) {
+						OP_doc = "0414"; 
+					}else if (dato_op.equals("0424")) {
+						OP_doc = "0424"; 
+					}else if (dato_op.equals("0426")) {
+						OP_doc = "0426"; 
+					}else if (dato_op.equals("0212")) {
+						OP_doc = "0212"; 
+					}
+		
+				String cedula_signup = Nac_doc + cedula_str;  
+				String telef_signup = OP_doc + telefono_str; 
+				
 				Log.d(TAG,bin2hex(getHash(contrasena_str)));
 				
 				String contrasena_cript = bin2hex(getHash(contrasena_str)); 
@@ -103,13 +146,13 @@ public class Act_Signup extends Activity {
 								JSONObject json_ob = new JSONObject(); 
 								try {
 									json_ob.put("apeCliente", apellido_str);
-									json_ob.put("cedCliente", cedula_str);
+									json_ob.put("cedCliente", cedula_signup);
 									json_ob.put("emailCliente", correo_str); 
 									json_ob.put("estatus", "1"); 
 									json_ob.put("idCliente", idcliente); 
 									json_ob.put("nomCliente", nombre_str); 
 									json_ob.put("passCliente", contrasena_cript); 
-									json_ob.put("telCliente", telefono_str); 
+									json_ob.put("telCliente", telef_signup); 
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
