@@ -40,6 +40,7 @@ public class GestionSesionesUsuario {
 	public static final String correo = "correo_str";
 	public static final String telefono = "telefono_str";
 	public static final String contrasena = "contrasena_str";
+	
 
 	public GestionSesionesUsuario(Context context_c){
 		this.context_ap = context_c; 
@@ -48,7 +49,7 @@ public class GestionSesionesUsuario {
 	}
 
 	public void crearSesionUSuario(String name, String email, String nombre_str, String apellido_str,
-			String cedula_str, String correo_str, String telefono_str){
+			String cedula_str, String correo_str, String telefono_str, String contrasena_str){
 		editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
 		editor_ap.putString(PREFER_NAME, name); 
 		editor_ap.putString(KEY_EMAIL, email); 
@@ -57,14 +58,15 @@ public class GestionSesionesUsuario {
 		editor_ap.putString(cedula, cedula_str); 
 		editor_ap.putString(correo, correo_str);
 		editor_ap.putString(telefono, telefono_str); 
-		//		editor_ap.putString(contrasena, contrasena_str);	
+		editor_ap.putString(contrasena, contrasena_str);	
 		editor_ap.commit(); 
 
 		}
-		public void iniciarSesionUsuario(String name, String email){
+		public void iniciarSesionUsuario(String name, String email, String contrasena_str){
 			editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
 			editor_ap.putString(PREFER_NAME, name); 
 			editor_ap.putString(KEY_EMAIL, email); 
+			editor_ap.putString(contrasena, contrasena_str); 
 			editor_ap.commit(); 
 		}
 

@@ -10,8 +10,10 @@
     tools:context="com.ayalamart.appcliente.Act_Micuenta" >
 
     <LinearLayout
+        android:id="@+id/Lay_actsignup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -62,8 +64,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLines="1"
+                    android:nextFocusDown="@+id/mc_apellido"
                     android:singleLine="true"
                     android:textColor="#ffffffff" >
                 </AutoCompleteTextView>
@@ -82,8 +86,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLines="1"
+                    android:nextFocusDown="@+id/mc_cedula"
                     android:singleLine="true"
                     android:textColor="#ffffffff" />
 
@@ -95,16 +101,31 @@
                     android:text="@string/texttblabel_cedula"
                     android:textColor="#ffffffff" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/mc_cedula"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="#ffffffff" />
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/nacionalidad_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                       />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mc_cedula"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/mc_correo"
+                        android:singleLine="true"
+                        />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tblabel_correo"
@@ -120,8 +141,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:ems="10"
+                    android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLines="1"
+                    android:nextFocusDown="@+id/mc_telefono"
                     android:singleLine="true"
                     android:textColor="#ffffffff" />
 
@@ -133,16 +156,30 @@
                     android:text="@string/texttblabel_telefono"
                     android:textColor="#ffffffff" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/mc_telefono"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:inputType="textCapWords"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="#ffffffff" />
+                    android:layout_height="wrap_content" >
+
+                    <Spinner
+                        android:id="@+id/operador_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textColor="#bf9b9c" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mc_telefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ems="10"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:nextFocusDown="@+id/Lay_actsignup"
+                        android:singleLine="true"
+                        android:textColor="#ffffffff" />
+                </LinearLayout>
 
                 <!-- <AutoCompleteTextView -->
                 <!-- android:id="@+id/mc_numerousuario" -->

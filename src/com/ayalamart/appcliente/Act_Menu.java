@@ -18,36 +18,40 @@ import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class Act_Menu extends Activity{
-	
+
 	private static final String TAG = Act_Menu.class.getSimpleName(); 
-	
+
 	private static String Url = "http://api.androidhive.info/json/movies.json"; 
 	private static String Url_pr = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll/"; 
-	 private ProgressDialog pDialog;
-	 private List<Plato> listaPlato = new ArrayList<Plato>(); 
-	 private CustomListAdapter adapter; 
-	 private ListView listView; 
-	 private int j; 
-	 private TextView total; 
-	 
-	 @Override
+	private ProgressDialog pDialog;
+	private List<Plato> listaPlato = new ArrayList<Plato>(); 
+	private CustomListAdapter adapter; 
+	private ListView listView; 
+	private int j; 
+	private TextView total; 
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__menu);
-		
+
 		listView = (ListView)findViewById(R.id.LV_menu); 
 		adapter = new CustomListAdapter(this, listaPlato, new BtnClickListener() {
-			
+
 			@Override
 			public void onBtnClick(int position) {
-				
-			/*	Plato plato = new Plato(); 
+
+				/*	Plato plato = new Plato(); 
 				j = plato.getPrecio(); 
 				String k = total.getText().toString(); 
 				if (k != "00") {
@@ -61,18 +65,18 @@ public class Act_Menu extends Activity{
 			}
 		}); 
 		listView.setAdapter(adapter);
-		
+
 		pDialog = new ProgressDialog(this); 
-		pDialog.setMessage("Cargando...");
+		pDialog.setMessage("Por favor espere...");
 		pDialog.show(); 
-		
-		
+
+
 		JsonArrayRequest platoReq = new JsonArrayRequest(Url, new Response.Listener<JSONArray>() {
-			
+
 			public void onResponse(JSONArray response){
 				Log.d(TAG, response.toString()); 
 				hidePDialog();
-				
+
 				for (int i = 0; i < response.length(); i++) {
 					try {
 						final JSONObject obj = response.getJSONObject(i); 
@@ -81,7 +85,23 @@ public class Act_Menu extends Activity{
 						plato.setThumbnail(obj.getString("image"));
 						plato.setDescripcion(obj.getString("title"));
 						plato.setPrecio(obj.getInt("releaseYear"));
-						listaPlato.add(plato);		
+						listaPlato.add(plato);	
+						
+						Button verpedido = (Button)findViewById(R.id.button1); 
+						verpedido.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								Log.d(TAG, "SE PRESIONÓ EL BOTÓN"); 
+								
+								Intent intent = new Intent(getApplicationContext(), Act_detallespedido.class);  
+								
+								Log.d(TAG, "inicia el intent"); 
+								
+								startActivity(intent);	
+							}
+						});
+						
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -96,19 +116,23 @@ public class Act_Menu extends Activity{
 			}
 		});
 		AppController.getInstance().addToRequestQueue(platoReq);
+		
+		
+
 	}
 
-@Override
-protected void onDestroy() {
-	super.onDestroy();
-	hidePDialog();
-}
-private void hidePDialog(){
-	if (pDialog != null) {
-		pDialog.dismiss();
-		pDialog = null; 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		hidePDialog();
 	}
-}
+	private void hidePDialog(){
+		if (pDialog != null) {
+			pDialog.dismiss();
+			pDialog = null; 
+		}
+	}
+
 
 
 }

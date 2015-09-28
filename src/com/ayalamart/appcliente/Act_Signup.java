@@ -1,15 +1,18 @@
 package com.ayalamart.appcliente;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.Request.Method;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionSesionesUsuario;
@@ -25,7 +28,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Act_Signup extends Activity {
 	private EditText contrasena; 
@@ -38,6 +40,7 @@ public class Act_Signup extends Activity {
 	GestionSesionesUsuario sesion; 
 	private ProgressDialog pDialog;
 	String urlCrearCliente = "http://10.10.0.99:8080/Restaurante/rest/createCliente"; 
+
 	private static String TAG = Act_Signup.class.getSimpleName();
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +56,10 @@ public class Act_Signup extends Activity {
 		telefono = (EditText)findViewById(R.id.telefono_signup); 
 		contrasena = (EditText)findViewById(R.id.contrasena_signup); 
 		conf_contrasena = (EditText)findViewById(R.id.et_confirm_contrasena);
-		
+
 		pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Por favor espere...");
-        pDialog.setCancelable(false);
+		pDialog.setMessage("Por favor espere...");
+		pDialog.setCancelable(false);
 
 		//declarando el mensaje de error, y colocandole el mismo color de fondo para esconderlo 
 		final TextView mensaje_error = (TextView)findViewById(R.id.alerta_contr_no_match); 
@@ -68,7 +71,7 @@ public class Act_Signup extends Activity {
 			@Override
 			public void onClick(View v) {	
 
-				
+
 
 				final String name = "nombre_ejm"; 
 				final String email = "correo_ejm"; 
@@ -80,10 +83,12 @@ public class Act_Signup extends Activity {
 				final String contrasena_str = contrasena.getText().toString(); 
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
 
-				pDialog.show();
 
 
-
+				Log.d(TAG,bin2hex(getHash(contrasena_str)));
+				
+				String contrasena_cript = bin2hex(getHash(contrasena_str)); 
+				
 				if (validarCorreo(correo_str)) {
 					if (validarDatos(nombre_str, cedula_str, correo_str, telefono_str)) {
 						if (validarPassword(contrasena_str)) {
@@ -95,39 +100,41 @@ public class Act_Signup extends Activity {
 								mensaje_error.setBackgroundColor(Color.parseColor("#96B497"));
 								mensaje_error.setText(match);
 								Long idcliente = new Long(0); 
-								String json = "{"+"apeCliente"+":"+apellido_str+","+"cedCliente"+":"+cedula_str+","+
-										"emailCliente"+":"+correo_str+","+"estatus"+":"+"1"+","+"idCliente"+":"+idcliente+","+
-										"nomCliente"+":"+nombre_str+","+"passCliente"+":"+contrasena_str+","+"telCliente"+":"+telefono_str+"}"; 
-			
-								JSONObject cliente_nuevo = null;
+								JSONObject json_ob = new JSONObject(); 
 								try {
-									cliente_nuevo = new JSONObject(json);
-									
-								} catch (JSONException e2) {
-
-									e2.printStackTrace();
+									json_ob.put("apeCliente", apellido_str);
+									json_ob.put("cedCliente", cedula_str);
+									json_ob.put("emailCliente", correo_str); 
+									json_ob.put("estatus", "1"); 
+									json_ob.put("idCliente", idcliente); 
+									json_ob.put("nomCliente", nombre_str); 
+									json_ob.put("passCliente", contrasena_cript); 
+									json_ob.put("telCliente", telefono_str); 
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 									Log.d(TAG, "ERROR DE JSON"); 
 								} 
+								
 							
-
 								JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, 
-										urlCrearCliente, cliente_nuevo, null , new Response.ErrorListener() {
+										urlCrearCliente, json_ob, null , new Response.ErrorListener() {
 									@Override
 									public void onErrorResponse(VolleyError error) {
 										VolleyLog.d(TAG, "Error: " + error.getMessage());
-										
+
 										Log.d(TAG, "Error: " + error.getMessage()); 
 										/*Toast.makeText(getApplicationContext(),
-												error.getMessage(), Toast.LENGTH_SHORT).show();
-										*/
+														error.getMessage(), Toast.LENGTH_SHORT).show();
+										 */
 										// hide the progress dialog
 										hidepDialog();
 									}
 								});	
-								sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str);
+								sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str, contrasena_cript);
 								Log.d(TAG, "LOGRO REGISTRARSE"); 
 								hidepDialog();
-								
+
 								Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 								intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 								intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
@@ -157,6 +164,11 @@ public class Act_Signup extends Activity {
 					correo.setError("Correo Inválido");
 					hidepDialog();
 				}
+
+
+
+
+
 			}
 		});
 	}
@@ -186,6 +198,22 @@ public class Act_Signup extends Activity {
 		}
 		return false; 
 	}
+	
+private byte[] getHash(String password) {
+    MessageDigest digest=null;
+ try {
+     digest = MessageDigest.getInstance("SHA-256");
+ } catch (NoSuchAlgorithmException e1) {
+     // TODO Auto-generated catch block
+     e1.printStackTrace();
+ }
+    digest.reset();
+    return digest.digest(password.getBytes());
+}
+private static String bin2hex(byte[] data) {
+    return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
+}
+
 	private void showpDialog() {
 		if (!pDialog.isShowing())
 			pDialog.show();

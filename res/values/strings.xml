@@ -49,5 +49,7 @@
     <string name="texttblabel_correo">Correo Electrónico</string>
     <string name="texttblabel_telefono">"Teléfono "</string>
     <string name="datos_personales_str">Información personal</string>
+    <string name="but_realizarpedido_menu">Realizar pedido</string>
+    <string name="title_activity_act_detallespedido">Act_detallespedido</string>
 
 </resources>

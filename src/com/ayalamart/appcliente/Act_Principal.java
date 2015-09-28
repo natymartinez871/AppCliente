@@ -8,6 +8,7 @@ import com.shephertz.app42.paas.sdk.android.App42Log;
 import com.shephertz.app42.push.plugin.App42GCMController;
 import com.shephertz.app42.push.plugin.App42GCMService;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,12 +31,17 @@ public class Act_Principal extends AppCompatActivity {
 	GestionSesionesUsuario sesion; 
 	private View progView;
 	String userName = null; 
+	private ProgressDialog pDialog;
 	private static final String GoogleProjectNo = "913405012262";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act_principal);
+
+		pDialog = new ProgressDialog(this); 
+		pDialog.setMessage("Por favor espere...");
+
 
 		sesion = new GestionSesionesUsuario(getApplicationContext()); 
 		App42API.initialize(
@@ -62,22 +68,19 @@ public class Act_Principal extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				pDialog.show(); 
 				Intent intent_map = new Intent(getApplicationContext(), Act_Mapa.class); 
 				startActivity(intent_map);
+				hidePDialog();
 
 			}
 		});
-
-
 		Button button_acercade = (Button) findViewById(R.id.but_acercade);
 		button_acercade.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				Intent intent_acercade = new Intent(getApplicationContext(), Act_acercade.class);
 				startActivity(intent_acercade);
-
 			}
 		});
 
@@ -234,5 +237,11 @@ public class Act_Principal extends AppCompatActivity {
 				App42GCMController.saveRegisterationSuccess(Act_Principal.this);
 			}
 		});
+	}
+	private void hidePDialog(){
+		if (pDialog != null) {
+			pDialog.dismiss();
+			pDialog = null; 
+		}
 	}
 }
