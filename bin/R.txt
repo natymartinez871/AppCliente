@@ -801,12 +801,11 @@ int menu act__mapa 0x7f0e0001
 int menu act__menu 0x7f0e0002
 int menu act__micuenta 0x7f0e0003
 int menu act_acercade 0x7f0e0004
-int menu act_detallespedido 0x7f0e0005
-int menu act_mapa 0x7f0e0006
-int menu act_principal 0x7f0e0007
-int menu act_push 0x7f0e0008
-int menu activity_main 0x7f0e0009
-int menu fragmento_1 0x7f0e000a
+int menu act_mapa 0x7f0e0005
+int menu act_principal 0x7f0e0006
+int menu act_push 0x7f0e0007
+int menu activity_main 0x7f0e0008
+int menu fragmento_1 0x7f0e0009
 int raw gtm_analytics 0x7f050000
 int string abc_action_bar_home_description 0x7f070035
 int string abc_action_bar_home_description_format 0x7f070039

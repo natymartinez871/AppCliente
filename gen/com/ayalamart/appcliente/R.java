@@ -2741,12 +2741,11 @@ containing a value of this type.
         public static final int act__menu=0x7f0e0002;
         public static final int act__micuenta=0x7f0e0003;
         public static final int act_acercade=0x7f0e0004;
-        public static final int act_detallespedido=0x7f0e0005;
-        public static final int act_mapa=0x7f0e0006;
-        public static final int act_principal=0x7f0e0007;
-        public static final int act_push=0x7f0e0008;
-        public static final int activity_main=0x7f0e0009;
-        public static final int fragmento_1=0x7f0e000a;
+        public static final int act_mapa=0x7f0e0005;
+        public static final int act_principal=0x7f0e0006;
+        public static final int act_push=0x7f0e0007;
+        public static final int activity_main=0x7f0e0008;
+        public static final int fragmento_1=0x7f0e0009;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f050000;
