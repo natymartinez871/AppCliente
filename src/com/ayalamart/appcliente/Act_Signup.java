@@ -227,7 +227,7 @@ public class Act_Signup extends Activity {
 
 	private boolean validarPassword (String contrasena_str){
 
-		if (contrasena_str != null && contrasena_str.length() > 5 ){
+		if (contrasena_str != null && contrasena_str.length() >= 5 ){
 			return true; 
 		}
 		return false; 

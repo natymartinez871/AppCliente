@@ -4,7 +4,7 @@ public class Plato {
 
 	
 	private String titulo, thumbnailURL, descripcion; 
-	private int precio; 
+	private double precio; 
 	
 	public Plato(){
 	}
@@ -25,7 +25,7 @@ public class Plato {
 	public String getDescripcion(){
 		return descripcion; 
 	}
-	public int getPrecio(){
+	public double getPrecio(){
 		return precio; 
 	}
 	
@@ -38,8 +38,8 @@ public class Plato {
 	public void setDescripcion(String descripcion){
 		this.descripcion = descripcion; 
 	}
-	public void setPrecio(int precio){
-		this.precio = precio; 
+	public void setPrecio(double d){
+		this.precio = d; 
 	}
 	
 	

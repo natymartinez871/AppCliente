@@ -12,7 +12,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.ayalamart.adapter.CustomListAdapter;
-import com.ayalamart.adapter.CustomListAdapter.BtnClickListener;
 import com.ayalamart.helper.AppController;
 import com.ayalamart.modelo.Plato;
 
@@ -23,6 +22,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,18 +41,22 @@ public class Act_Menu extends Activity{
 	private int j; 
 	private TextView total; 
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__menu);
 
 		listView = (ListView)findViewById(R.id.LV_menu); 
-		adapter = new CustomListAdapter(this, listaPlato, new BtnClickListener() {
+		total = (TextView)findViewById(R.id.Total);
+		total.setText("0.0");
+		// BtnClickListener mClickListener = null; 
+		adapter = new CustomListAdapter(this, listaPlato/*, new BtnClickListener() {
 
 			@Override
 			public void onBtnClick(int position) {
 
-				/*	Plato plato = new Plato(); 
+					Plato plato = new Plato(); 
 				j = plato.getPrecio(); 
 				String k = total.getText().toString(); 
 				if (k != "00") {
@@ -61,9 +66,10 @@ public class Act_Menu extends Activity{
 				}
 				else{
 					total.setText(k);
-				}*/
+				}
 			}
-		}); 
+		}*/); 
+
 		listView.setAdapter(adapter);
 
 		pDialog = new ProgressDialog(this); 
@@ -80,32 +86,53 @@ public class Act_Menu extends Activity{
 				for (int i = 0; i < response.length(); i++) {
 					try {
 						final JSONObject obj = response.getJSONObject(i); 
-						Plato plato = new Plato(); 
+						final Plato plato = new Plato(); 
 						plato.setTitulo(obj.getString("title"));
 						plato.setThumbnail(obj.getString("image"));
 						plato.setDescripcion(obj.getString("title"));
-						plato.setPrecio(obj.getInt("releaseYear"));
-						listaPlato.add(plato);	
-						
+						plato.setPrecio(obj.getDouble("releaseYear"));
+						listaPlato.add(plato);
+
+						listView.setOnItemClickListener(new OnItemClickListener() {
+
+							@Override
+							public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+								final double montoagregado_i = plato.getPrecio(); 
+								Button but = (Button)findViewById(R.id.agr_al_carrito_but); 
+								but.setOnClickListener(new OnClickListener() {
+
+									@Override
+									public void onClick(View v) {
+										double subtotal_i = Double.parseDouble(total.getText().toString()); 
+										sumartotal(montoagregado_i , subtotal_i); 
+										total.setText(String.valueOf(subtotal_i));
+
+									}
+								});
+							}
+						});
+
 						Button verpedido = (Button)findViewById(R.id.button1); 
 						verpedido.setOnClickListener(new OnClickListener() {
 
 							@Override
 							public void onClick(View v) {
 								Log.d(TAG, "SE PRESIONÓ EL BOTÓN"); 
-								
+
 								Intent intent = new Intent(getApplicationContext(), Act_detallespedido.class);  
-								
+
 								Log.d(TAG, "inicia el intent"); 
-								
+
 								startActivity(intent);	
 							}
 						});
-						
+
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 				}
+				
+				
 				adapter.notifyDataSetChanged();
 			}
 		}, new Response.ErrorListener() {
@@ -116,11 +143,21 @@ public class Act_Menu extends Activity{
 			}
 		});
 		AppController.getInstance().addToRequestQueue(platoReq);
-		
-		
+
+
 
 	}
 
+	public double sumartotal(double montoagregado, double subtotal){
+		if (subtotal != 0.0)
+		{
+			subtotal = montoagregado + subtotal; 
+			return subtotal; 
+		}
+		else 
+			subtotal = montoagregado; 
+		return subtotal; 
+	}
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
