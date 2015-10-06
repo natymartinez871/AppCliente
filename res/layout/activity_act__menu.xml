@@ -36,7 +36,7 @@
             android:text="Total con IVA" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tv_nroplatos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bs."

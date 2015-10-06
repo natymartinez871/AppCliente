@@ -34,6 +34,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 	private String URlJson; 
 	private String urlActualizarCliente = "http://10.10.0.99:8080/Restaurante/rest/updateCliente/";
+	private String urlActualizarCliente_r = "http://192.168.1.99:8080/Restaurante/rest/updateCliente/";
 	String Nac_doc; 
 	String OP_doc; 
 	GestionSesionesUsuario sesion;
@@ -43,6 +44,7 @@ public class Act_Micuenta extends AppCompatActivity {
 	private AutoCompleteTextView correousuarioTV; 
 	private AutoCompleteTextView telefonousuarioTV; 
 	private static String TAG = Act_Micuenta.class.getSimpleName();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class Act_Micuenta extends AppCompatActivity {
 			String telefono = usuario.get(GestionSesionesUsuario.telefono); 
 			String cedula = usuario.get(GestionSesionesUsuario.cedula); 
 			final String clave_str = usuario.get(GestionSesionesUsuario.contrasena); 
+			final String tipocliente = usuario.get(GestionSesionesUsuario.tipocliente); 
 
 			nombreusuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_nombre); 
 			apellidousuarioTV = (AutoCompleteTextView)findViewById(R.id.mc_apellido); 
@@ -149,9 +152,7 @@ public class Act_Micuenta extends AppCompatActivity {
 						cliente_act.put("nomCliente", nombre_act);
 						cliente_act.put("passCliente", clave_str);
 						cliente_act.put("telCliente", telef_act_tot);
-						
-						 
-						
+						cliente_act.put("tipoCliente", tipocliente); 
 
 
 					} catch (JSONException e) {
@@ -161,7 +162,7 @@ public class Act_Micuenta extends AppCompatActivity {
 					} 
 
 
-					URlJson = urlActualizarCliente + correo_str; 
+					URlJson = urlActualizarCliente_r + correo_str; 
 					JsonObjectRequest jsonObjReq1 = new JsonObjectRequest(URlJson, cliente_act, new Listener<JSONObject>() {
 
 						@Override
@@ -186,7 +187,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 
 					AppController.getInstance().addToRequestQueue(jsonObjReq1);
-					sesion.crearSesionUSuario(name, email, nombre_act, apellido_act, cedula_act, correo_act, telefono_act, clave_str);
+					sesion.crearSesionUSuario(name, email, nombre_act, apellido_act, cedula_act, correo_act, telefono_act, clave_str, tipocliente);
 
 					Log.d(TAG, "LOGRO ACTUALIZAR"); 
 					hidepDialog();

@@ -33,7 +33,7 @@ TextView numorden;
 		
 		sesion = new GestionSesionesUsuario(getApplicationContext()); 
 		
-		nombres = (TextView)findViewById(R.id.textView1); 
+		nombres = (TextView)findViewById(R.id.tv_nroplatos); 
 		apellidos= (TextView)findViewById(R.id.textView2); 
 		detallespedido = (TextView)findViewById(R.id.textView3); 
 		totalpedido = (TextView)findViewById(R.id.textView4); 

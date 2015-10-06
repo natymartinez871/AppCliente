@@ -40,6 +40,7 @@ public class GestionSesionesUsuario {
 	public static final String correo = "correo_str";
 	public static final String telefono = "telefono_str";
 	public static final String contrasena = "contrasena_str";
+	public static final String tipocliente = "tipocliente_str"; 
 	
 
 	public GestionSesionesUsuario(Context context_c){
@@ -49,7 +50,7 @@ public class GestionSesionesUsuario {
 	}
 
 	public void crearSesionUSuario(String name, String email, String nombre_str, String apellido_str,
-			String cedula_str, String correo_str, String telefono_str, String contrasena_str){
+			String cedula_str, String correo_str, String telefono_str, String contrasena_str, String tipocliente_str){
 		editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
 		editor_ap.putString(PREFER_NAME, name); 
 		editor_ap.putString(KEY_EMAIL, email); 
@@ -58,7 +59,8 @@ public class GestionSesionesUsuario {
 		editor_ap.putString(cedula, cedula_str); 
 		editor_ap.putString(correo, correo_str);
 		editor_ap.putString(telefono, telefono_str); 
-		editor_ap.putString(contrasena, contrasena_str);	
+		editor_ap.putString(contrasena, contrasena_str);
+		editor_ap.putString(tipocliente, tipocliente_str); 
 		editor_ap.commit(); 
 
 		}
@@ -90,7 +92,8 @@ public class GestionSesionesUsuario {
 			usuario.put(cedula, pref_ap.getString(cedula, null));
 			usuario.put(correo, pref_ap.getString(correo, null));
 			usuario.put(telefono, pref_ap.getString(telefono, null));
-			usuario.put(contrasena, pref_ap.getString(contrasena, null));		
+			usuario.put(contrasena, pref_ap.getString(contrasena, null));
+			usuario.put(tipocliente, pref_ap.getString(tipocliente, null)); 
 			return usuario; 
 		}
 

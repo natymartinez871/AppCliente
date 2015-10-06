@@ -1,6 +1,9 @@
 package com.ayalamart.appcliente;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
@@ -45,6 +48,7 @@ public class Act_login extends AppCompatActivity {
 
 
 	String url = "http://10.10.0.99:8080/Restaurante/rest/getCliente/"; 
+	String url_R = "http://192.168.1.99:8080/Restaurante/rest/getCliente/"; 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,22 +80,55 @@ public class Act_login extends AppCompatActivity {
 		Button button_login = (Button)findViewById(R.id.email_sign_in_button); 		
 		button_login.setOnClickListener(new OnClickListener() {
 
+			private String urlJsonObj_r;
+			private String UrlRequest;
+
 			@Override
 			public void onClick(View v) {
 
 				final String email_str = email.getText().toString();
 				final String password_str = password.getText().toString(); 
+				
+				
+				
 				View focusView = null;
 
 				if (validarCorreo(email_str)) {
 					if (validarPassword(password_str)) {	
 						urlJsonObj = url + email_str; 
+						urlJsonObj_r = url_R + email_str; 
+						Log.d(TAG, urlJsonObj); 
+						
 						sesion.getDetallesUsuario(); 
+						
+						try {
+
+							boolean reachable = InetAddress.getByName(urlJsonObj).isReachable(5000);
+							if (reachable) {
+								UrlRequest = urlJsonObj; 
+							}else{
+								boolean reachable2 = InetAddress.getByName(urlJsonObj_r).isReachable(5000); 
+								
+							if (!reachable2) {
+								Toast.makeText(getApplicationContext(), "no se encuentra conectado a ningun servidor", Toast.LENGTH_SHORT).show(); 
+							}else {
+								UrlRequest = urlJsonObj_r; 
+							}
+							}
+						
+						} catch (UnknownHostException e) {
+							// TODO Auto-generated catch block
+						// 	e.printStackTrace();
+							Log.d(TAG, "UnknownHostEx" + e.toString()); 
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						showpDialog();
 						JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, 
 								urlJsonObj, null, new Response.Listener<JSONObject>() {
-
+							
 							@Override
 							public void onResponse(JSONObject response) {
 								Log.d(TAG, response.toString());
@@ -106,6 +143,7 @@ public class Act_login extends AppCompatActivity {
 									String idcliente = response.getString("idCliente");
 									String telefono = response.getString("telCliente");
 									String clave = response.getString("passCliente");
+									String tipocliente = response.getString("tipoCliente"); 
 									if(status.equals("0")){
 										Toast.makeText(getApplicationContext(), "Su usuario se encuentra inhabilitado", Toast.LENGTH_SHORT).show(); 
 									}
@@ -114,7 +152,7 @@ public class Act_login extends AppCompatActivity {
 									String clave_hash = bin2hex(getHash(password_str)); 
 
 									if (clave.equals(clave_hash)) {
-										sesion.crearSesionUSuario(nombre, correo, nombre, apellido, cedula, correo, telefono, clave_hash);
+										sesion.crearSesionUSuario(nombre, correo, nombre, apellido, cedula, correo, telefono, clave_hash, tipocliente);
 
 										Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 										intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
