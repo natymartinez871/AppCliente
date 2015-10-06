@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFEC6"
+    android:background="@drawable/backgroundImage"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -49,36 +49,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/boton_act_ppal"
+                    android:background="#ffffff"
                     android:text="@string/nuestro_menu"
-                    android:textColor="#ffffff" />
+                    android:textColor="#562912" />
 
                 <Button
                     android:id="@+id/but_mapa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/boton_act_ppal"
+                    android:background="#ffffff"
                     android:text="@string/donde_estamos_but"
-                    android:textColor="#ffffff" />
+                    android:textColor="#562912" />
 
                 <Button
                     android:id="@+id/but_acercade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/boton_act_ppal"
+                    android:background="#ffffff"
                     android:text="@string/acerca_de_but"
-                    android:textColor="#ffffff" />
+                    android:textColor="#562912" />
 
                 <Button
                     android:id="@+id/but_micuenta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/boton_act_ppal"
+                    android:background="#ffffff"
                     android:text="@string/mi_cuenta_but"
-                    android:textColor="#ffffff" />
+                    android:textColor="#562912" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -92,6 +92,6 @@
         android:autoLink="web"
         android:gravity="center_horizontal"
         android:text="@string/cerrar_sesion_string"
-        android:textColor="#B24C4F" />
+        android:textColor="#fff" />
 
 </RelativeLayout>

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC5D4C"
+    android:background="@drawable/backgroundImage"
+    android:background="@drawable/backgroundImage"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:gravity="center_vertical|center_horizontal"
@@ -11,25 +12,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LoginActivity" 
-    >
+    tools:context=".LoginActivity" >
 
     <LinearLayout
         android:id="@+id/ll1"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_width="244dp"
+        android:layout_height="103dp"
+        android:background="@drawable/logo"
         android:gravity="center_vertical|center_horizontal" >
-        
 
-        <TextView
-            android:id="@+id/nombre_login"
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TESSIE&apos;S"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffffff"
-            android:textSize="30dp" />
+            android:src="@drawable/logo-01" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,6 +56,7 @@
                     android:id="@+id/email_login_form"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
                     android:orientation="vertical" >
 
                     <AutoCompleteTextView
@@ -94,10 +91,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:background="#8A211D"
+                        android:background="#ffffff"
                         android:text="@string/action_sign_in"
-                        android:textColor="#ffffffff"
+                        android:textAlignment="center"
+                        android:textColor="#562912"
                         android:textStyle="bold" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -106,8 +105,7 @@
     <LinearLayout
         android:id="@+id/ll3"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_height="34dp"
         android:gravity="bottom|center_horizontal" >
 
         <TextView
