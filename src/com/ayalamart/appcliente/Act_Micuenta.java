@@ -162,7 +162,7 @@ public class Act_Micuenta extends AppCompatActivity {
 					} 
 
 
-					URlJson = urlActualizarCliente_r + correo_str; 
+					URlJson = urlActualizarCliente + correo_str; 
 					JsonObjectRequest jsonObjReq1 = new JsonObjectRequest(URlJson, cliente_act, new Listener<JSONObject>() {
 
 						@Override

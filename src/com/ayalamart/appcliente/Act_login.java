@@ -43,6 +43,7 @@ public class Act_login extends AppCompatActivity {
 	GestionSesionesUsuario sesion;
 	private ProgressDialog pDialog;
 	private String urlJsonObj; 
+	private String urlJsonObj_r;
 
 	private static String TAG = Act_login.class.getSimpleName();
 
@@ -80,16 +81,11 @@ public class Act_login extends AppCompatActivity {
 		Button button_login = (Button)findViewById(R.id.email_sign_in_button); 		
 		button_login.setOnClickListener(new OnClickListener() {
 
-			private String urlJsonObj_r;
-			private String UrlRequest;
-
 			@Override
 			public void onClick(View v) {
 
 				final String email_str = email.getText().toString();
 				final String password_str = password.getText().toString(); 
-				
-				
 				
 				View focusView = null;
 
@@ -97,33 +93,10 @@ public class Act_login extends AppCompatActivity {
 					if (validarPassword(password_str)) {	
 						urlJsonObj = url + email_str; 
 						urlJsonObj_r = url_R + email_str; 
+						
 						Log.d(TAG, urlJsonObj); 
 						
 						sesion.getDetallesUsuario(); 
-						
-						try {
-
-							boolean reachable = InetAddress.getByName(urlJsonObj).isReachable(5000);
-							if (reachable) {
-								UrlRequest = urlJsonObj; 
-							}else{
-								boolean reachable2 = InetAddress.getByName(urlJsonObj_r).isReachable(5000); 
-								
-							if (!reachable2) {
-								Toast.makeText(getApplicationContext(), "no se encuentra conectado a ningun servidor", Toast.LENGTH_SHORT).show(); 
-							}else {
-								UrlRequest = urlJsonObj_r; 
-							}
-							}
-						
-						} catch (UnknownHostException e) {
-							// TODO Auto-generated catch block
-						// 	e.printStackTrace();
-							Log.d(TAG, "UnknownHostEx" + e.toString()); 
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 						
 						showpDialog();
 						JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET, 
@@ -220,12 +193,11 @@ public class Act_login extends AppCompatActivity {
 
 	}
 	private boolean validarPassword (String contrasena_str){
-		if (contrasena_str != null && contrasena_str.length() > 5 ){
+		if (contrasena_str != null && contrasena_str.length() >= 5 ){
 			return true; 
 		}
 		return false; 
 	}
-
 
 
 private byte[] getHash(String password) {

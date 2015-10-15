@@ -173,7 +173,7 @@ public class Act_Signup extends Activity {
 									Log.d(TAG, "ERROR DE JSON"); 
 								} 
 
-									UrlRequest = urlCrearcliente_R; 
+									UrlRequest = urlCrearCliente; 
 									
 									JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, 
 											UrlRequest, json_ob, null , new Response.ErrorListener() {
@@ -182,7 +182,7 @@ public class Act_Signup extends Activity {
 											VolleyLog.d(TAG, "Error: " + error.getMessage());
 
 											Log.d(TAG, "Error CON S1: " + error.getMessage()); 
-										
+										/*
 											if (error instanceof NoConnectionError){
 												
 												
@@ -198,7 +198,8 @@ public class Act_Signup extends Activity {
 													
 														});
 												AppController.getInstance().addToRequestQueue(jsonRequestRed);
-											} 
+											
+											} */
 											hidepDialog();
 										}
 									});	

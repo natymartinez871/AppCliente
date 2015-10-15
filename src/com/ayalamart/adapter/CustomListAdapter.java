@@ -12,8 +12,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class CustomListAdapter extends BaseAdapter{
@@ -22,12 +24,12 @@ public class CustomListAdapter extends BaseAdapter{
 	private LayoutInflater inflater;
 	private List<Plato> itemsPlato; 
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-//	private BtnClickListener mClickListener = null;
+	private BtnClickListener mClickListener = null;
 	
-	public CustomListAdapter(Activity activity, List<Plato> itemsPlato) {
+	public CustomListAdapter(Activity activity, List<Plato> itemsPlato, BtnClickListener listener) {
 		this.activity = activity; 
 		this.itemsPlato = itemsPlato; 
-	//	this.mClickListener = listener;
+		this.mClickListener = listener;
 	}
 
 	@Override
@@ -59,31 +61,31 @@ public class CustomListAdapter extends BaseAdapter{
 		TextView tit_plato = (TextView)convertView.findViewById(R.id.tit_plato); 
 		TextView descrip_plato = (TextView)convertView.findViewById(R.id.descrip_plato); 
 		TextView precio_plato = (TextView)convertView.findViewById(R.id.precio_plato); 
-		// Button agregarplato = (Button)convertView.findViewById(R.id.agr_al_carrito_but); 
+		Button agregarplato = (Button)convertView.findViewById(R.id.agr_al_carrito_but); 
 
 		Plato p = itemsPlato.get(position); 
 		thumbNail.setImageUrl(p.getThumbnail(), imageLoader);
 		tit_plato.setText(p.getTitulo());
 		descrip_plato.setText(p.getDescripcion());
 		precio_plato.setText(String.valueOf(p.getPrecio()));
-	//	agregarplato.setTag(position);
-	//	agregarplato.setOnClickListener(new OnClickListener() {
+		agregarplato.setTag(position);
+		agregarplato.setOnClickListener(new OnClickListener() {
 			
-		/*	@Override
+			@Override
 			public void onClick(View v) {
 				if(mClickListener != null)
 		            mClickListener.onBtnClick((Integer) v.getTag());     
 			}
 		});
-	*/ 
+	
 		
 		
 
 		return convertView; 
 	}
-	/*
+	
 	public interface BtnClickListener {
 	    public abstract void onBtnClick(int position);
 	}
-*/ 
+
 }

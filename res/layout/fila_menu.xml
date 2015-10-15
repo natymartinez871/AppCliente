@@ -48,20 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_add"
-        android:text=" " />
-
-    <!-- <NumberPicker -->
-    <!-- android:id="@+id/agr_al_carrito_but" -->
-    <!-- style="@style/Base.TextAppearance.AppCompat.Small" -->
-    <!-- android:layout_width="wrap_content" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_alignParentRight="true" -->
-    <!-- android:layout_alignParentTop="true" -->
-    <!-- android:text="Agregar" -->
-    <!-- android:textSize="10dp" /> -->
-
-
+        android:text="Agregar"
+        android:textSize="10dp" />
     <!-- android:onClick="agregarHandler" -->
 
     <TextView
@@ -70,28 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/descrip_plato"
-        android:layout_marginTop="30dp"
         android:text="Bs. XXXX,XX"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/tv_nroplatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/agr_al_carrito_but"
-        android:layout_toRightOf="@+id/descrip_plato"
-        android:text=" "
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_nroplatos"
-        android:background="@drawable/ic_remove"
-        android:text=" " />
 
 </RelativeLayout>
