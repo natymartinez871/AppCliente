@@ -49,7 +49,7 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 
 
-
+//ejm
 	private static String TAG = Act_RealizarPago.class.getSimpleName();
 
 	@Override
