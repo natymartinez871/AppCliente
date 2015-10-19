@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.ayalamart.adapter.CustomListAdapter;
 import com.ayalamart.adapter.CustomListAdapter.BtnClickListener;
 import com.ayalamart.helper.AppController;
+import com.ayalamart.helper.GestionPedidoUsuario;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
@@ -31,19 +32,22 @@ public class Act_Menu extends Activity{
 
 	private static final String TAG = Act_Menu.class.getSimpleName(); 
 
-	private static String URL_Platos_N = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
-	private static String URL_Platos = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos_N = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
 	private ProgressDialog pDialog;
 	private List<Plato> listaPlato = new ArrayList<Plato>(); 
 	private CustomListAdapter adapter; 
 	private ListView listView; 
 	private int j; 
 	private TextView total; 
+	GestionPedidoUsuario pedidos; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__menu);
+		
+		pedidos = new GestionPedidoUsuario(getApplicationContext()); 
 
 		listView = (ListView)findViewById(R.id.LV_menu); 
 		adapter = new CustomListAdapter(this, listaPlato); 

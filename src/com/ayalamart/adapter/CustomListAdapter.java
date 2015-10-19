@@ -6,6 +6,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.ayalamart.appcliente.R;
 import com.ayalamart.helper.AppController;
+import com.ayalamart.helper.GestionPedidoUsuario;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
@@ -19,19 +20,23 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-public class CustomListAdapter extends BaseAdapter{
+public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 
 	private Activity activity;
 	private LayoutInflater inflater;
 	private List<Plato> itemsPlato; 
+	GestionPedidoUsuario sesion_P; 
+	
 
 	
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 	// private BtnClickListener mClickListener = null;
 	private final String[] cantidadValores = new String[] { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "10", "11", "13", "14", "15" };
+	
 
 	public CustomListAdapter(Activity activity, List<Plato> itemsPlato) {
 		this.activity = activity; 
@@ -83,12 +88,22 @@ public class CustomListAdapter extends BaseAdapter{
 		cant_comprar.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				int getPosition = (Integer)parent.getTag(); 
-				Log.d("customAdapter", "getPosition: "+ getPosition); 
-				itemsPlato.get(position).setPrecio(
-						Integer.valueOf(parent.getSelectedItem().toString()).intValue());
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				// int getPosition = (Integer)parent.getTag(); 
+			try {
+				Spinner sp = (Spinner) parent;
+				String str = sp.getTag().toString();
+				sesion_P = new GestionPedidoUsuario(activity); 
+			//	sesion_P.crearPedidoUsuario(pedido, str);
+				
+			} catch (ArrayIndexOutOfBoundsException  e) {
+				  Log.d("Error in spinner",e.toString());
 			}
+				Log.d("customAdapter", "getPosition: "+ pos); 
+				
+				
+			}
+			
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {

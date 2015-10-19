@@ -30,7 +30,7 @@ public class GestionSesionesUsuario {
 	private static final String TAG = GestionSesionesUsuario.class.getSimpleName(); 
 
 
-	private static final String PREFER_NAME = "AndroidPrueba"; 
+	private static final String PREFER_NAME = "AndroidClientes"; 
 	private static final String USUARIO_LOGGEADO = "EstaLogeadoelUsuario"; 
 	public static final String KEY_NAME = "name"; 
 	public static final String KEY_EMAIL = "email"; 
@@ -111,9 +111,6 @@ public class GestionSesionesUsuario {
 			return pref_ap.getBoolean(USUARIO_LOGGEADO, false); 
 		}
 
-		public void llenarObjCliente(){
 
-
-		}
 
 	}
