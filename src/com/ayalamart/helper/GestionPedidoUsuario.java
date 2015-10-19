@@ -2,6 +2,10 @@ package com.ayalamart.helper;
 
 import java.util.HashMap;
 
+import org.json.JSONArray;
+
+import com.android.volley.toolbox.JsonArrayRequest;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -16,6 +20,7 @@ public class GestionPedidoUsuario {
 	private static final String PREFER_NAME = "AndroidPedidos"; 
 	public static final String Pedido = "pedido"; 
 	public static final String Subtotal = "subtotal"; 
+	
 	
 	public GestionPedidoUsuario(Context context_p){
 		this.context_ap_ped = context_p; 
@@ -36,6 +41,8 @@ public HashMap<String, String> getDetallesPedido(){
 	return pedido; 
 	
 }
+
+
 
 
 

@@ -1,6 +1,7 @@
 package com.ayalamart.appcliente;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -12,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.ayalamart.adapter.CustomListAdapter;
-import com.ayalamart.adapter.CustomListAdapter.BtnClickListener;
 import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionPedidoUsuario;
 import com.ayalamart.modelo.Plato;
@@ -87,6 +87,25 @@ public class Act_Menu extends Activity{
 			}
 		});
 		AppController.getInstance().addToRequestQueue(platoReq);
+		
+		TextView TV_Subtotal = (TextView)findViewById(R.id.Total); 
+		/* Double subtot = 00.0; 
+		
+		String pedido_act = pedido.get(GestionPedidoUsuario.Pedido);
+		 
+		subtot = Double.parseDouble(subtotal)  + subtot; 
+		*/ 
+	
+		final HashMap<String, String> pedido = pedidos.getDetallesPedido(); 
+		String subtotal = pedido.get(GestionPedidoUsuario.Subtotal);
+		if (!subtotal.toString().equals(null)) {
+			TV_Subtotal.setText(subtotal.toString());
+		}else
+		{
+			TV_Subtotal.setText("00.0");
+		}
+		
+		
 
 
 		Button but_pagar = (Button)findViewById(R.id.but_finalizPedido); 

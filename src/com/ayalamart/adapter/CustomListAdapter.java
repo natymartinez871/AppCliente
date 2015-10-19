@@ -1,6 +1,11 @@
 package com.ayalamart.adapter;
 
+import java.util.HashMap;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -22,6 +27,7 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 
@@ -29,6 +35,7 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 	private LayoutInflater inflater;
 	private List<Plato> itemsPlato; 
 	GestionPedidoUsuario sesion_P; 
+	
 	
 
 	
@@ -91,13 +98,54 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				// int getPosition = (Integer)parent.getTag(); 
 			try {
-				Spinner sp = (Spinner) parent;
-				String str = sp.getTag().toString();
-				sesion_P = new GestionPedidoUsuario(activity); 
-			//	sesion_P.crearPedidoUsuario(pedido, str);
+				//Spinner sp = (Spinner) parent;
+				final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
+				String pedido_act = pedido.get(GestionPedidoUsuario.Pedido);
+				if (!pedido_act.equals(null)) {
+					JSONObject pedidoJson_ob = new JSONObject(pedido_act); 
+					JSONArray PedidoJson_Arr = pedidoJson_ob.getJSONArray("pedido"); 
+					Double subtotal = 0.0; 
+					for (int i = 0; i < PedidoJson_Arr.length(); i++) {
+						JSONObject pedidosLot = PedidoJson_Arr.getJSONObject(i); 
+						String Precio = (String) pedidosLot.get("precplato"); 
+						String Cantidad = (String)pedidosLot.get("cantidad"); 
+						Double sub = Double.parseDouble(Cantidad)*Double.parseDouble(Precio); 
+						subtotal = sub +subtotal; 
+					}
+					JSONObject pedido_masplato = new JSONObject(); 
+					pedido_masplato.put("nomplato", "plato prueba"); 
+					Double precioprueba = 9.0; 
+					pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
+					Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
+					subtotal = sub +subtotal; 
+					PedidoJson_Arr.put(pedido_masplato); 
+					String pedido_str = PedidoJson_Arr.toString(); 
+					
+					sesion_P = new GestionPedidoUsuario(activity); 
+					sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
+				}
+				else{
+					Double subtotal = 0.0; 
+					JSONObject pedido_masplato = new JSONObject(); 
+					pedido_masplato.put("nomplato", "plato prueba"); 
+					Double precioprueba = 9.0; 
+					pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
+					Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
+					subtotal = sub +subtotal; 
+					JSONArray PedidoJson_Arr = new JSONArray(); 
+					PedidoJson_Arr.put(pedido_masplato); 
+					String pedido_str = PedidoJson_Arr.toString(); 
+					
+					sesion_P = new GestionPedidoUsuario(activity); 
+					sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
+				}
+				
 				
 			} catch (ArrayIndexOutOfBoundsException  e) {
 				  Log.d("Error in spinner",e.toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 				Log.d("customAdapter", "getPosition: "+ pos); 
 				
@@ -139,9 +187,9 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 		return convertView; 
 	}
 
-
-	public interface BtnClickListener {
-		public abstract void onBtnClick(int position);
-	}
+//
+//	public interface BtnClickListener {
+//		public abstract void onBtnClick(int position);
+//	}
 
 }
