@@ -31,8 +31,8 @@ public class Act_Menu extends Activity{
 
 	private static final String TAG = Act_Menu.class.getSimpleName(); 
 
-	private static String URL_Platos = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
-	private static String URL_Platos_N = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos_N = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
 	private ProgressDialog pDialog;
 	private List<Plato> listaPlato = new ArrayList<Plato>(); 
 	private CustomListAdapter adapter; 
@@ -46,25 +46,7 @@ public class Act_Menu extends Activity{
 		setContentView(R.layout.activity_act__menu);
 
 		listView = (ListView)findViewById(R.id.LV_menu); 
-		adapter = new CustomListAdapter(this, listaPlato, new BtnClickListener() {
-
-			@Override
-			public void onBtnClick(int position) {
-
-				/*	Plato plato = new Plato(); 
-				j = plato.getPrecio(); 
-				String k = total.getText().toString(); 
-				if (k != "00") {
-					int l = Integer.parseInt(k); 
-					j = j + l; 
-					total.setText(j);
-				}
-				else{
-					total.setText(k);
-				}*/
-			}
-		}); 
-
+		adapter = new CustomListAdapter(this, listaPlato); 
 
 		listView.setAdapter(adapter);
 		pDialog = new ProgressDialog(this); 

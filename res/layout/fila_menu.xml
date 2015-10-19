@@ -41,16 +41,27 @@
     <!-- android:layout_marginLeft="29dp" -->
     <!-- android:src="@drawable/ic_stat_gcm" /> -->
 
-    <Button
-        android:id="@+id/agr_al_carrito_but"
-        style="?android:attr/buttonStyleSmall"
+
+    <!-- <Button -->
+    <!-- android:id="@+id/agr_al_carrito_but" -->
+    <!-- style="?android:attr/buttonStyleSmall" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentRight="true" -->
+    <!-- android:layout_alignParentTop="true" -->
+    <!-- android:text="Agregar" -->
+    <!-- android:textSize="10dp" /> -->
+
+
+    <!-- android:onClick="agregarHandler" -->
+
+    <Spinner
+        android:id="@+id/cantidad_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Agregar"
-        android:textSize="10dp" />
-    <!-- android:onClick="agregarHandler" -->
+         />
 
     <TextView
         android:id="@+id/precio_plato"

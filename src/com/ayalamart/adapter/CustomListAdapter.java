@@ -10,12 +10,15 @@ import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class CustomListAdapter extends BaseAdapter{
@@ -23,13 +26,17 @@ public class CustomListAdapter extends BaseAdapter{
 	private Activity activity;
 	private LayoutInflater inflater;
 	private List<Plato> itemsPlato; 
-	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-	private BtnClickListener mClickListener = null;
+
 	
-	public CustomListAdapter(Activity activity, List<Plato> itemsPlato, BtnClickListener listener) {
+	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+	// private BtnClickListener mClickListener = null;
+	private final String[] cantidadValores = new String[] { "0", "1", "2", "3", "4",
+			"5", "6", "7", "8", "9", "10", "11", "13", "14", "15" };
+
+	public CustomListAdapter(Activity activity, List<Plato> itemsPlato) {
 		this.activity = activity; 
 		this.itemsPlato = itemsPlato; 
-		this.mClickListener = listener;
+
 	}
 
 	@Override
@@ -46,6 +53,7 @@ public class CustomListAdapter extends BaseAdapter{
 	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+
 		if (inflater == null ) {
 			inflater = (LayoutInflater) activity
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,31 +69,64 @@ public class CustomListAdapter extends BaseAdapter{
 		TextView tit_plato = (TextView)convertView.findViewById(R.id.tit_plato); 
 		TextView descrip_plato = (TextView)convertView.findViewById(R.id.descrip_plato); 
 		TextView precio_plato = (TextView)convertView.findViewById(R.id.precio_plato); 
-		Button agregarplato = (Button)convertView.findViewById(R.id.agr_al_carrito_but); 
+		//Button agregarplato = (Button)convertView.findViewById(R.id.agr_al_carrito_but); 
+		Spinner cant_comprar = (Spinner)convertView.findViewById(R.id.cantidad_spinner); 
+
+ 
+
+		ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(
+				activity, android.R.layout.simple_spinner_item,
+				cantidadValores);
+		quantityAdapter
+		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		cant_comprar.setAdapter(quantityAdapter);
+		cant_comprar.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				int getPosition = (Integer)parent.getTag(); 
+				Log.d("customAdapter", "getPosition: "+ getPosition); 
+				itemsPlato.get(position).setPrecio(
+						Integer.valueOf(parent.getSelectedItem().toString()).intValue());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			
+				
+			}
+		});
+
+		/*final Spinner nac_spinner = (Spinner)findViewById(R.id.nacionalidad_spinner_singup); 
+		ArrayAdapter<CharSequence> adapter_nac = ArrayAdapter.createFromResource(getApplicationContext(), R.array.nacionalidades, android.R.layout.simple_spinner_item); 
+		adapter_nac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		nac_spinner.setAdapter(adapter_nac);
+
+		 * */
+
 
 		Plato p = itemsPlato.get(position); 
 		thumbNail.setImageUrl(p.getThumbnail(), imageLoader);
 		tit_plato.setText(p.getTitulo());
 		descrip_plato.setText(p.getDescripcion());
 		precio_plato.setText(String.valueOf(p.getPrecio()));
-		agregarplato.setTag(position);
+		/*	agregarplato.setTag(position);
 		agregarplato.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if(mClickListener != null)
 		            mClickListener.onBtnClick((Integer) v.getTag());     
 			}
 		});
-	
-		
-		
+		 */
 
 		return convertView; 
 	}
-	
+
+
 	public interface BtnClickListener {
-	    public abstract void onBtnClick(int position);
+		public abstract void onBtnClick(int position);
 	}
 
 }
