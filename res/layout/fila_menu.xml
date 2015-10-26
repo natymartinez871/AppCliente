@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/agr_al_carrito_but"
+        android:layout_toLeftOf="@+id/cantidad_spinner"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Hamburguesa"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -60,8 +60,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-         />
+        android:layout_alignParentTop="true" />
+
+    <!-- <AutoCompleteTextView -->
+    <!-- android:id="@+id/cantidad_ACTV" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentRight="true" -->
+    <!-- android:layout_alignParentTop="true" /> -->
 
     <TextView
         android:id="@+id/precio_plato"
