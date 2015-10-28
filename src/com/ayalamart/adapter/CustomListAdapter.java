@@ -36,7 +36,7 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 	private List<Plato> itemsPlato; 
 	GestionPedidoUsuario sesion_P; 
 	
-	
+	 
 
 	
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
