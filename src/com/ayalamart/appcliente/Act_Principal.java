@@ -1,5 +1,6 @@
 package com.ayalamart.appcliente;
 
+import java.io.CharArrayWriter;
 import java.util.HashMap;
 
 import com.ayalamart.helper.AppController;
@@ -56,10 +57,13 @@ public class Act_Principal extends AppCompatActivity {
 				"cfef88516cd746711b09dc2040995ad813ddba1abeacea658a7659470abdfbfe");
 
 		HashMap<String, String> usuario = sesion.getDetallesUsuario(); 
-		String nombre = usuario.get(GestionSesionesUsuario.nombre); 
-		String apellido = usuario.get(GestionSesionesUsuario.apellido); 
+//		String nombre = usuario.get(GestionSesionesUsuario.nombre); 
+//		String apellido = usuario.get(GestionSesionesUsuario.apellido); 
 		String cedulausuario = usuario.get(GestionSesionesUsuario.cedula); 
-		final String datousuario = nombre.toUpperCase() + apellido.toUpperCase() + "_" + cedulausuario; 
+		String correousuario = usuario.get(GestionSesionesUsuario.correo); 
+		
+		final String datousuario = correousuario  + "_" + cedulausuario; 
+
 		App42Log.setDebug(true);
 		App42API.setLoggedInUser(datousuario);
 
