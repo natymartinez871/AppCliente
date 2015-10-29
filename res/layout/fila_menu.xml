@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tit_plato"
         android:layout_below="@+id/tit_plato"
-        android:layout_toLeftOf="@+id/agr_al_carrito_but"
+        android:layout_toLeftOf="@+id/cantidad_spinner"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nisl urna, at lobortis dolor egestas id."
         android:textAppearance="?android:attr/textAppearanceSmall" />

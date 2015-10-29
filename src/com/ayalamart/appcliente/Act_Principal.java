@@ -2,9 +2,14 @@ package com.ayalamart.appcliente;
 
 import java.util.HashMap;
 
+import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionSesionesUsuario;
 import com.shephertz.app42.paas.sdk.android.App42API;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.App42Log;
+import com.shephertz.app42.paas.sdk.android.App42Response;
+import com.shephertz.app42.paas.sdk.android.push.PushNotification;
+import com.shephertz.app42.paas.sdk.android.push.PushNotificationService;
 import com.shephertz.app42.push.plugin.App42GCMController;
 import com.shephertz.app42.push.plugin.App42GCMService;
 
@@ -33,6 +38,7 @@ public class Act_Principal extends AppCompatActivity {
 	String userName = null; 
 	private ProgressDialog pDialog;
 	private static final String GoogleProjectNo = "913405012262";
+	private static final String messagestr = "OMG MARTY IT WORKS"; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,7 @@ public class Act_Principal extends AppCompatActivity {
 		String nombre = usuario.get(GestionSesionesUsuario.nombre); 
 		String apellido = usuario.get(GestionSesionesUsuario.apellido); 
 		String cedulausuario = usuario.get(GestionSesionesUsuario.cedula); 
-		String datousuario = nombre + "_"+ apellido + "_" + ":" + cedulausuario; 
+		final String datousuario = nombre.toUpperCase() + apellido.toUpperCase() + "_" + cedulausuario; 
 		App42Log.setDebug(true);
 		App42API.setLoggedInUser(datousuario);
 
@@ -64,7 +70,13 @@ public class Act_Principal extends AppCompatActivity {
 		}
 
 		progView = findViewById(R.id.app_pal_progress_bar); 
-
+		
+	   //  PushNotificationService pushnotificationService = App42API.buildPushNotificationService();     
+	   //  PushNotification pushNotification = pushnotificationService.sendPushMessageToUser(datousuario, messagestr);
+	   //  AppController.getInstance().addToRequestQueue();	
+		
+		
+	    
 		final Button buton_map = (Button) findViewById(R.id.but_mapa);
 
 		buton_map.setOnClickListener(new OnClickListener() {
@@ -72,6 +84,25 @@ public class Act_Principal extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				pDialog.show(); 
+				
+				//CODIGO PARA ENVIARLE A UN USUARIO LA NOTIFICACION PUSH. FORMATO DE DATOUSUSARIO: 
+				//nombre.toUpperCase() + apellido.toUpperCase() + "_" + cedulausuario; 
+				App42API.buildPushNotificationService().sendPushMessageToUser(datousuario,
+						messagestr, new App42CallBack() {
+						
+						@Override
+						public void onSuccess(Object arg0) {
+							// TODO Auto-generated method stub
+							App42Response response=(App42Response) arg0;
+							onApp42Response(response.getStrResponse());
+						}
+						
+						@Override
+						public void onException(Exception arg0) {
+							// TODO Auto-generated method stub
+							onApp42Response(arg0.getMessage());
+						}
+					});
 				Intent intent_map = new Intent(getApplicationContext(), Act_Mapa.class); 
 				startActivity(intent_map);
 				hidePDialog();
