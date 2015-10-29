@@ -35,19 +35,23 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 	private LayoutInflater inflater;
 	private List<Plato> itemsPlato; 
 	GestionPedidoUsuario sesion_P; 
-	
-	
-
-	
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
 	// private BtnClickListener mClickListener = null;
 	private final String[] cantidadValores = new String[] { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "10", "11", "13", "14", "15" };
+	private ArrayAdapter<String> quantityAdapter = null;
+	
 	
 
 	public CustomListAdapter(Activity activity, List<Plato> itemsPlato) {
 		this.activity = activity; 
-		this.itemsPlato = itemsPlato; 
+		this.itemsPlato = itemsPlato;
+		
+		ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(
+				activity, android.R.layout.simple_spinner_item,
+				cantidadValores);
+		quantityAdapter
+		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 	}
 
@@ -71,7 +75,7 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 		if (convertView == null ) {
-			convertView = inflater.inflate(R.layout.fila_menu, null); 
+			convertView = inflater.inflate(R.layout.fila_menu, null); 	
 		}
 		if (imageLoader == null) {
 			imageLoader = AppController.getInstance().getImageLoader(); 
@@ -83,61 +87,62 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 		TextView precio_plato = (TextView)convertView.findViewById(R.id.precio_plato); 
 		//Button agregarplato = (Button)convertView.findViewById(R.id.agr_al_carrito_but); 
 		Spinner cant_comprar = (Spinner)convertView.findViewById(R.id.cantidad_spinner); 
-
- 
-
-		ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(
-				activity, android.R.layout.simple_spinner_item,
-				cantidadValores);
-		quantityAdapter
-		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		cant_comprar.setAdapter(quantityAdapter);
-		cant_comprar.setOnItemSelectedListener(new OnItemSelectedListener() {
+		
+				cant_comprar.setAdapter(quantityAdapter );
+				cant_comprar.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				// int getPosition = (Integer)parent.getTag(); 
 			try {
 				//Spinner sp = (Spinner) parent;
-				final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
-				String pedido_act = pedido.get(GestionPedidoUsuario.Pedido);
-				if (!pedido_act.equals(null)) {
-					JSONObject pedidoJson_ob = new JSONObject(pedido_act); 
-					JSONArray PedidoJson_Arr = pedidoJson_ob.getJSONArray("pedido"); 
-					Double subtotal = 0.0; 
-					for (int i = 0; i < PedidoJson_Arr.length(); i++) {
-						JSONObject pedidosLot = PedidoJson_Arr.getJSONObject(i); 
-						String Precio = (String) pedidosLot.get("precplato"); 
-						String Cantidad = (String)pedidosLot.get("cantidad"); 
-						Double sub = Double.parseDouble(Cantidad)*Double.parseDouble(Precio); 
+				
+				if (sesion_P.existePedido()) {
+					final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
+					String pedido_act = pedido.get(GestionPedidoUsuario.Pedido);
+					if (!pedido_act.equals(null)) {
+						JSONObject pedidoJson_ob = new JSONObject(pedido_act); 
+						JSONArray PedidoJson_Arr = pedidoJson_ob.getJSONArray("pedido"); 
+						Double subtotal = 0.0; 
+						for (int i = 0; i < PedidoJson_Arr.length(); i++) {
+							JSONObject pedidosLot = PedidoJson_Arr.getJSONObject(i); 
+							String Precio = (String) pedidosLot.get("precplato"); 
+							String Cantidad = (String)pedidosLot.get("cantidad"); 
+							Double sub = Double.parseDouble(Cantidad)*Double.parseDouble(Precio); 
+							subtotal = sub +subtotal; 
+						}
+						JSONObject pedido_masplato = new JSONObject(); 
+						pedido_masplato.put("nomplato", "plato prueba"); 
+						Double precioprueba = 9.0; 
+						pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
+						Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
 						subtotal = sub +subtotal; 
+						PedidoJson_Arr.put(pedido_masplato); 
+						String pedido_str = PedidoJson_Arr.toString(); 
+						
+						sesion_P = new GestionPedidoUsuario(activity); 
+						sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
 					}
-					JSONObject pedido_masplato = new JSONObject(); 
-					pedido_masplato.put("nomplato", "plato prueba"); 
-					Double precioprueba = 9.0; 
-					pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
-					Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
-					subtotal = sub +subtotal; 
-					PedidoJson_Arr.put(pedido_masplato); 
-					String pedido_str = PedidoJson_Arr.toString(); 
+					else{
+						Double subtotal = 0.0; 
+						JSONObject pedido_masplato = new JSONObject(); 
+						pedido_masplato.put("nomplato", "plato prueba"); 
+						Double precioprueba = 9.0; 
+						pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
+						Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
+						subtotal = sub +subtotal; 
+						JSONArray PedidoJson_Arr = new JSONArray(); 
+						PedidoJson_Arr.put(pedido_masplato); 
+						String pedido_str = PedidoJson_Arr.toString(); 
+						
+						sesion_P = new GestionPedidoUsuario(activity); 
+						sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
+					}
 					
-					sesion_P = new GestionPedidoUsuario(activity); 
-					sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
+					
 				}
 				else{
-					Double subtotal = 0.0; 
-					JSONObject pedido_masplato = new JSONObject(); 
-					pedido_masplato.put("nomplato", "plato prueba"); 
-					Double precioprueba = 9.0; 
-					pedido_masplato.put("cantidad", cantidadValores[pos].toString()); 
-					Double sub = precioprueba*Double.parseDouble(cantidadValores[pos].toString()); 
-					subtotal = sub +subtotal; 
-					JSONArray PedidoJson_Arr = new JSONArray(); 
-					PedidoJson_Arr.put(pedido_masplato); 
-					String pedido_str = PedidoJson_Arr.toString(); 
 					
-					sesion_P = new GestionPedidoUsuario(activity); 
-					sesion_P.crearPedidoUsuario(pedido_str, subtotal.toString());
 				}
 				
 				
@@ -164,7 +169,6 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 		ArrayAdapter<CharSequence> adapter_nac = ArrayAdapter.createFromResource(getApplicationContext(), R.array.nacionalidades, android.R.layout.simple_spinner_item); 
 		adapter_nac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		nac_spinner.setAdapter(adapter_nac);
-
 		 * */
 
 
@@ -175,7 +179,6 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 		precio_plato.setText(String.valueOf(p.getPrecio()));
 		/*	agregarplato.setTag(position);
 		agregarplato.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				if(mClickListener != null)

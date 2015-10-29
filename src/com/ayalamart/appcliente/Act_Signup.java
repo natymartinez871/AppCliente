@@ -1,9 +1,6 @@
 package com.ayalamart.appcliente;
 
-import java.io.IOException;
 import java.math.BigInteger;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
@@ -13,16 +10,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
-import com.android.volley.NetworkResponse;
-import com.android.volley.NoConnectionError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionSesionesUsuario;
 
@@ -34,7 +25,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.URLUtil;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,8 +44,7 @@ public class Act_Signup extends Activity {
 	private ProgressDialog pDialog;
 	String Nac_doc;
 	String OP_doc;
-	String urlCrearCliente = "http://10.0.2.2:8080/Restaurante/rest/createCliente"; 
-	String urlCrearCliente_N = "http://10.10.0.99:8080/Restaurante/rest/createCliente"; 
+	String urlCrearCliente = "http://10.10.0.99:8080/Restaurante/rest/createCliente"; 
 	String urlCrearcliente_R = "http://192.168.1.99:8080/Restaurante/rest/createCliente"; 
 	//private String UrlRequest; 
 	String tipocliente = "cliente";
@@ -113,7 +102,7 @@ public class Act_Signup extends Activity {
 				final String telefono_str = telefono.getText().toString();
 				final String contrasena_str = contrasena.getText().toString(); 
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
-
+				
 
 				String dato_nac = nac_spinner.getSelectedItem().toString(); 
 				Log.d(TAG, dato_nac); 
@@ -144,7 +133,7 @@ public class Act_Signup extends Activity {
 				String contrasena_cript = bin2hex(getHash(contrasena_str)); 
 
 				if (validarCorreo(correo_str)) {
-					if (validarDatos(nombre_str, cedula_str, correo_str, telefono_str)) {
+					if (validarDatos(nombre_str, apellido_str,  cedula_str, telefono_str)) {
 						if (validarPassword(contrasena_str)) {
 							//si el password es valido, entra al siguiente ciclo 
 
@@ -174,75 +163,70 @@ public class Act_Signup extends Activity {
 									Log.d(TAG, "ERROR DE JSON"); 
 								} 
 
-									UrlRequest = urlCrearCliente; 
-									
-									JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, 
-											UrlRequest, json_ob, null , new Response.ErrorListener() {
-										@Override
-										public void onErrorResponse(VolleyError error) {
-											VolleyLog.d(TAG, "Error: " + error.getMessage());
+								UrlRequest = urlCrearCliente; 
 
-											Log.d(TAG, "Error CON S1: " + error.getMessage()); 
-										/*
-											if (error instanceof NoConnectionError){
-												
-												
-												UrlRequest = urlCrearCliente; 
-												JsonObjectRequest jsonRequestRed = new JsonObjectRequest(Method.POST, 
-														UrlRequest, json_ob, null , new Response.ErrorListener() {
+								JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST, 
+										UrlRequest, json_ob, null , new Response.ErrorListener() {
+									@Override
+									public void onErrorResponse(VolleyError error) {
+										VolleyLog.d(TAG, "Error: " + error.getMessage());
 
-															@Override
-															public void onErrorResponse(VolleyError error2) {
-																// TODO Auto-generated method stub
-																Log.d(TAG, "Error con S2: " + error2.getMessage()); 
-															}
-													
-														});
-												AppController.getInstance().addToRequestQueue(jsonRequestRed);
-											
-											} */
-											hidepDialog();
-										}
-									});	
+										Log.d(TAG, "Error CON SERVIDOR: " + error.getMessage()); 
+										hidepDialog();
+									}
+								});	
 
-									sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str, contrasena_cript, tipocliente);
-									 
-									hidepDialog();
+								sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str, contrasena_cript, tipocliente);
+								
+								/*aqui tengo que colocar inicio de sesion. 
+								 * Si coteja lo que esta en la sesion de usuario (de archivo de SharedPrefs)
+								 *  contra el objeto JSon que se recibió, ENTONCES hace login
+								* y asi verifico que si se guardó la data en la bd. 
+								*/
+								
+								
+								
+								
+								hidepDialog();
 
-									Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
-									intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-									intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-									startActivity(intent_ppal);
-									finish(); 
-									
-									AppController.getInstance().addToRequestQueue(jsonObjReq);	
-								}
-								else{
+								Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
+								intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+								intent_ppal.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+								startActivity(intent_ppal);
+								finish(); 
 
-									String str_nomatch = "La contraseña no coincide";
-									mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
-									mensaje_error.setText(str_nomatch);
-									hidepDialog();
-								}
+								AppController.getInstance().addToRequestQueue(jsonObjReq);	
 							}
-
 							else{
-								// si el password no es valido, entonces mostrara el error de password invalido. 
-								contrasena.setError("Contraseña invalida. Debe como mínimo 5 caracteres o ser no nula");
+
+								String str_nomatch = "La contraseña no coincide";
+								mensaje_error.setBackgroundColor(Color.parseColor("#CC5D4C"));
+								mensaje_error.setText(str_nomatch);
 								hidepDialog();
 							}
 						}
-					}
-					else {
-						correo.setError("Correo Inválido");
-						hidepDialog();
-					}
 
+						else{
+							// si el password no es valido, entonces mostrara el error de password invalido. 
+							contrasena.setError("Contraseña invalida. Debe como mínimo 5 caracteres o ser no nula");
+							hidepDialog();
+						}
+					}
 				}
-			});
-		}
+				else {
+					correo.setError("Correo Inválido");
+					hidepDialog();
+				}
 
-		private boolean validarCorreo (String correo_str){
+			}
+		});
+	}
+
+	private boolean validarCorreo (String correo_str){
+
+		if ( !correo_str.isEmpty()
+				&& !correo_str.trim().isEmpty()
+				&& correo_str != null) {
 			String PATRON_CORREO = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; 
 
@@ -250,47 +234,98 @@ public class Act_Signup extends Activity {
 			Matcher correlacionador = patron.matcher(correo_str); 
 			return correlacionador.matches();	
 		}
-
-		private boolean validarPassword (String contrasena_str){
-
-			if (contrasena_str != null && contrasena_str.length() >= 5 ){
-				return true; 
-			}
-			return false; 
-
-		}
-
-		private boolean validarDatos (String nombre_str, String cedula_str, String correo_str, String telefono_str ){
-
-			if (nombre_str != null && cedula_str != null && telefono_str != null && correo_str != null ){
-				return true; 
-			}
-			return false; 
-		}
-
-		private byte[] getHash(String password) {
-			MessageDigest digest=null;
-			try {
-				digest = MessageDigest.getInstance("SHA-256");
-			} catch (NoSuchAlgorithmException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			digest.reset();
-			return digest.digest(password.getBytes());
-		}
-		private static String bin2hex(byte[] data) {
-			return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
-		}
-
-		private void showpDialog() {
-			if (!pDialog.isShowing())
-				pDialog.show();
-		}
-
-		private void hidepDialog() {
-			if (pDialog.isShowing())
-				pDialog.dismiss();
-		}
+		return false;
 
 	}
+
+	private boolean validarPassword (String contrasena_str){
+
+		if (contrasena_str != null && contrasena_str.length() >= 5 ){
+			return true; 
+		}
+		return false; 
+
+	}
+
+	private boolean validarDatos (String nombre_str, String apellido_str , String cedula_str, String telefono_str ){
+
+		if (        nombre_str != null 
+				&& !nombre_str.isEmpty() 
+				&& !nombre_str.trim().isEmpty() 
+				&&  apellido_str != null 
+				&& !apellido_str.isEmpty() 
+				&& !apellido_str.trim().isEmpty() 
+				&& cedula_str != null
+				&& !cedula_str.isEmpty()
+				&& !cedula_str.trim().isEmpty() 
+				&& !telefono_str.trim().isEmpty()
+				&& !telefono_str.isEmpty()
+				&& telefono_str != null
+				){
+			char[] arrayNombre = nombre_str.toCharArray(); 
+			for (int i = 0; i < arrayNombre.length; i++) {
+				if (Character.isDigit(arrayNombre[i])) {
+					nombre.setError("El campo de nombre no puede poseer caracteres numericos ");
+					Log.d(TAG, "El primer char tipo numero es: " + arrayNombre[i]); 
+					hidepDialog();
+					return false;
+				} 
+			}
+			char[] arrayApellido = apellido_str.toCharArray(); 
+			for (int i = 0; i < arrayApellido.length; i++) {
+				if (Character.isDigit(arrayApellido[i])) {
+					apellido.setError("El campo de apellido no puede poseer caracteres numericos ");
+					Log.d(TAG, "El primer char tipo numero es: " + arrayApellido[i]); 
+					hidepDialog();
+					return false;
+				} 
+			}
+			char[] arrayTelefono = telefono_str.toCharArray(); 
+			for (int i = 0; i < arrayTelefono.length; i++) {
+				if (!Character.isDigit(arrayTelefono[i])) {
+					telefono.setError("El campo de Telefono no puede poseer letras");
+					Log.d(TAG, "El primer char tipo letra es: " + arrayTelefono[i]); 
+					hidepDialog();
+					return false;
+				} 
+			}	
+			char[] arrayCedula = cedula_str.toCharArray(); 
+			for (int i = 0; i < arrayCedula.length; i++) {
+				if (!Character.isDigit(arrayCedula[i])) {
+					nombre.setError("El campo de Cedula no puede poseer letras ");
+					Log.d(TAG, "El primer char tipo letra es: " + arrayCedula[i]); 
+					hidepDialog();
+					return false;
+				} 
+			}	
+			return true; 	
+		}
+		return false; 
+	}
+
+	private byte[] getHash(String password) {
+		MessageDigest digest=null;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		digest.reset();
+		return digest.digest(password.getBytes());
+	}
+	private static String bin2hex(byte[] data) {
+		return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
+	}
+
+	private void showpDialog() {
+		if (!pDialog.isShowing())
+			pDialog.show();
+	}
+
+	private void hidepDialog() {
+		if (pDialog.isShowing())
+			pDialog.dismiss();
+	}
+
+}

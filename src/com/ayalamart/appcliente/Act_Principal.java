@@ -51,8 +51,11 @@ public class Act_Principal extends AppCompatActivity {
 
 		HashMap<String, String> usuario = sesion.getDetallesUsuario(); 
 		String nombre = usuario.get(GestionSesionesUsuario.nombre); 
+		String apellido = usuario.get(GestionSesionesUsuario.apellido); 
+		String cedulausuario = usuario.get(GestionSesionesUsuario.cedula); 
+		String datousuario = nombre + "_"+ apellido + "_" + ":" + cedulausuario; 
 		App42Log.setDebug(true);
-		App42API.setLoggedInUser(nombre);
+		App42API.setLoggedInUser(datousuario);
 
 		Toast.makeText(getApplicationContext(), "Status de Login de Usuario" + sesion.estaLogeadoelUsuario(), Toast.LENGTH_SHORT).show();
 

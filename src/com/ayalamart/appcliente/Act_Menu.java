@@ -32,22 +32,22 @@ public class Act_Menu extends Activity{
 
 	private static final String TAG = Act_Menu.class.getSimpleName(); 
 
-	private static String URL_Platos = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
-	private static String URL_Platos_N = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos_N = "http://10.10.0.99:8080/Restaurante/rest/plato/getPlatosAll"; 
+	private static String URL_Platos = "http://10.0.2.2:8080/Restaurante/rest/plato/getPlatosAll"; 
 	private ProgressDialog pDialog;
 	private List<Plato> listaPlato = new ArrayList<Plato>(); 
 	private CustomListAdapter adapter; 
 	private ListView listView; 
 	private int j; 
 	private TextView total; 
-	GestionPedidoUsuario pedidos; 
+	GestionPedidoUsuario sesion_P; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__menu);
 		
-		pedidos = new GestionPedidoUsuario(getApplicationContext()); 
+		sesion_P = new GestionPedidoUsuario(getApplicationContext()); 
 
 		listView = (ListView)findViewById(R.id.LV_menu); 
 		adapter = new CustomListAdapter(this, listaPlato); 
@@ -56,8 +56,9 @@ public class Act_Menu extends Activity{
 		pDialog = new ProgressDialog(this); 
 		pDialog.setMessage("Cargando...");
 		pDialog.show(); 
-
-
+		TextView TV_Subtotal = (TextView)findViewById(R.id.Total); 
+		TV_Subtotal.setText("00.0");
+		
 		JsonArrayRequest platoReq = new JsonArrayRequest(URL_Platos_N, new Response.Listener<JSONArray>() {
 
 			public void onResponse(JSONArray response){
@@ -88,22 +89,23 @@ public class Act_Menu extends Activity{
 		});
 		AppController.getInstance().addToRequestQueue(platoReq);
 		
-		TextView TV_Subtotal = (TextView)findViewById(R.id.Total); 
+	
 		/* Double subtot = 00.0; 
 		
 		String pedido_act = pedido.get(GestionPedidoUsuario.Pedido);
 		 
 		subtot = Double.parseDouble(subtotal)  + subtot; 
 		*/ 
-	
-		final HashMap<String, String> pedido = pedidos.getDetallesPedido(); 
-		String subtotal = pedido.get(GestionPedidoUsuario.Subtotal);
-		if (!subtotal.toString().equals(null)) {
-			TV_Subtotal.setText(subtotal.toString());
-		}else
-		{
+		if (!sesion_P.existePedido()) {
 			TV_Subtotal.setText("00.0");
+			
+		}else{
+			final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
+			String subtotal = pedido.get(GestionPedidoUsuario.Subtotal);
+			TV_Subtotal.setText(subtotal.toString());
 		}
+		
+		
 		
 		
 

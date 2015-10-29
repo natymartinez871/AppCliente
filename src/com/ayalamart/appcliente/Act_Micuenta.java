@@ -34,7 +34,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 	private String URlJson; 
 	private String urlActualizarCliente = "http://10.10.0.99:8080/Restaurante/rest/updateCliente/";
-	private String urlActualizarCliente_r = "http://192.168.1.99:8080/Restaurante/rest/updateCliente/";
+	private String urlActualizarCliente_J = "http://192.168.1.99:8080/Restaurante/rest/updateCliente/";
 	String Nac_doc; 
 	String OP_doc; 
 	GestionSesionesUsuario sesion;

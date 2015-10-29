@@ -48,8 +48,8 @@ public class Act_login extends AppCompatActivity {
 	private static String TAG = Act_login.class.getSimpleName();
 
 
-	String url_N = "http://10.10.0.99:8080/Restaurante/rest/getCliente/"; 
-	String url = "http://10.0.2.2:8080/Restaurante/rest/getCliente/"; 
+	String url = "http://10.10.0.99:8080/Restaurante/rest/getCliente/"; 
+	String url_E = "http://10.0.2.2:8080/Restaurante/rest/getCliente/"; 
 	String url_R = "http://192.168.1.99:8080/Restaurante/rest/getCliente/"; 
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +206,6 @@ private byte[] getHash(String password) {
  try {
      digest = MessageDigest.getInstance("SHA-256");
  } catch (NoSuchAlgorithmException e1) {
-     // TODO Auto-generated catch block
      e1.printStackTrace();
  }
     digest.reset();
