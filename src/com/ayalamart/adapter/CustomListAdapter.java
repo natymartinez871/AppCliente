@@ -1,5 +1,6 @@
 package com.ayalamart.adapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.ayalamart.appcliente.R;
 import com.ayalamart.helper.AppController;
 import com.ayalamart.helper.GestionPedidoUsuario;
+import com.ayalamart.modelo.Cantidad;
 import com.ayalamart.modelo.Plato;
 
 import android.app.Activity;
@@ -33,6 +35,7 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 
 	private Activity activity;
 	private LayoutInflater inflater;
+	ArrayList<Cantidad> data_cant = null; 
 	private List<Plato> itemsPlato; 
 	GestionPedidoUsuario sesion_P; 
 	ImageLoader imageLoader = AppController.getInstance().getImageLoader();
@@ -41,18 +44,15 @@ public class CustomListAdapter extends BaseAdapter implements SpinnerAdapter{
 			"5", "6", "7", "8", "9", "10", "11", "13", "14", "15" };
 	private ArrayAdapter<String> quantityAdapter = null;
 	
-	
-
 	public CustomListAdapter(Activity activity, List<Plato> itemsPlato) {
 		this.activity = activity; 
 		this.itemsPlato = itemsPlato;
-		
+	
 		ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(
 				activity, android.R.layout.simple_spinner_item,
 				cantidadValores);
 		quantityAdapter
 		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
 	}
 
 	@Override

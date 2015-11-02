@@ -24,6 +24,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -34,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -49,7 +51,7 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 
 
-//ejm
+	//ejm
 	private static String TAG = Act_RealizarPago.class.getSimpleName();
 
 	@Override
@@ -60,6 +62,30 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 		ScrollView scrollPago = (ScrollView)findViewById(R.id.scrollView_pago_realizado); 
 		scrollPago.setVisibility(View.GONE);
+		final ImageView tipotdc = (ImageView)findViewById(R.id.imageView_TIPOTDC); 
+		final AutoCompleteTextView cardnumber = (AutoCompleteTextView)findViewById(R.id.etNroTDC); 
+		final Handler h = new Handler();
+		final int delay = 1000; //milliseconds
+		h.postDelayed(new Runnable(){
+			public void run(){
+			
+				String tipotarjeta = revisarTipodeTarjeta(cardnumber.getText().toString());
+				
+				if (tipotarjeta.equals("master")) {
+					
+					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
+					tipotdc.refreshDrawableState();
+				}else if (tipotarjeta.equals("visa")) {
+					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
+					tipotdc.refreshDrawableState();
+		
+				}else {
+					Log.d(TAG, "tipotarjeta no reconocible"); 
+				}
+
+				h.postDelayed(this, delay);
+			}
+		}, delay);
 
 		Button but_pagar = (Button)findViewById(R.id.but_pagar); 
 		but_pagar.setOnClickListener(new OnClickListener() {
@@ -74,7 +100,7 @@ public class Act_RealizarPago extends AppCompatActivity {
 				AutoCompleteTextView cardholderID = (AutoCompleteTextView)findViewById(R.id.etCedulaTDC);
 				String CardHolderId = cardholderID.getText().toString(); 
 
-				AutoCompleteTextView cardnumber = (AutoCompleteTextView)findViewById(R.id.etNroTDC); 
+
 				String CardNumber = cardnumber.getText().toString(); 
 
 				AutoCompleteTextView cvc = (AutoCompleteTextView)findViewById(R.id.etCVCTDC);
@@ -243,6 +269,33 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 			}
 		});
+
+	}
+	public String revisarTipodeTarjeta (final String tdc){
+		
+		if (tdc.length() > 2) {
+			for (int i = 0; i < 2; i++) {
+				char[] tdcChar = tdc.toCharArray();
+				char var = tdcChar[i];
+				String num5 = "5"; 
+				char[] num5char = num5.toCharArray(); 
+				String num4 = "4"; 
+				char[] num4char = num4.toCharArray(); 
+				if(Character.valueOf(var).equals(Character.valueOf(num5char[0])))  {
+					for (int k = 1; k == 6; k++) {
+						int var2 = Integer.parseInt(Character.valueOf(tdcChar[i++]).toString()); 
+						if (var2 == k) {
+							return "master"; 
+							//tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
+						}
+					}
+				}else if (Character.valueOf(var).equals(Character.valueOf(num4char[0]))) {
+					// tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
+					return "visa"; 
+				}
+			}
+		}
+		return tdc;
 
 	}
 	private void takeScreenshot() {

@@ -3,6 +3,7 @@ package com.ayalamart.helper;
 import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.android.volley.toolbox.JsonArrayRequest;
 
@@ -22,6 +23,7 @@ public class GestionPedidoUsuario {
 	private static final String PREFER_NAME = "AndroidPedidos"; 
 	public static final String Pedido = "pedido"; 
 	public static final String Subtotal = "subtotal"; 
+	// public static final JSONObject pedido_obj ; 
 	
 	
 	public GestionPedidoUsuario(Context context_p){

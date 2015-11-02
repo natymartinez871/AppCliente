@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tit_plato"
         android:layout_below="@+id/tit_plato"
-        android:layout_toLeftOf="@+id/cantidad_spinner"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nisl urna, at lobortis dolor egestas id."
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -55,12 +54,12 @@
 
     <!-- android:onClick="agregarHandler" -->
 
-    <Spinner
-        android:id="@+id/cantidad_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+<!--     <Spinner -->
+<!--         android:id="@+id/cantidad_spinner" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_alignParentTop="true" /> -->
 
     <!-- <AutoCompleteTextView -->
     <!-- android:id="@+id/cantidad_ACTV" -->
@@ -77,5 +76,13 @@
         android:layout_below="@+id/descrip_plato"
         android:text="Bs. XXXX,XX"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <CheckBox
+        android:id="@+id/cbCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tit_plato"
+        android:layout_alignBottom="@+id/tit_plato"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

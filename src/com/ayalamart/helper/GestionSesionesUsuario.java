@@ -41,6 +41,7 @@ public class GestionSesionesUsuario {
 	public static final String telefono = "telefono_str";
 	public static final String contrasena = "contrasena_str";
 	public static final String tipocliente = "tipocliente_str"; 
+	public static final String idcliente = "idcliente_str"; 
 	
 
 	public GestionSesionesUsuario(Context context_c){
@@ -49,9 +50,10 @@ public class GestionSesionesUsuario {
 		editor_ap = pref_ap.edit();	
 	}
 
-	public void crearSesionUSuario(String name, String email, String nombre_str, String apellido_str,
+	public void crearSesionUSuario(String idcliente_str, String name, String email, String nombre_str, String apellido_str,
 			String cedula_str, String correo_str, String telefono_str, String contrasena_str, String tipocliente_str){
 		editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
+		editor_ap.putString(idcliente, idcliente_str); 
 		editor_ap.putString(PREFER_NAME, name); 
 		editor_ap.putString(KEY_EMAIL, email); 
 		editor_ap.putString(nombre, nombre_str); 
@@ -65,6 +67,7 @@ public class GestionSesionesUsuario {
 
 		}
 		public void iniciarSesionUsuario(String name, String email, String contrasena_str){
+			
 			editor_ap.putBoolean(USUARIO_LOGGEADO, true); 
 			editor_ap.putString(PREFER_NAME, name); 
 			editor_ap.putString(KEY_EMAIL, email); 
@@ -87,6 +90,7 @@ public class GestionSesionesUsuario {
 			HashMap<String, String> usuario = new HashMap<String, String>();
 			usuario.put(KEY_NAME, pref_ap.getString(KEY_NAME, null)); 
 			usuario.put(KEY_EMAIL, pref_ap.getString(KEY_EMAIL, null)); 
+			usuario.put(idcliente, pref_ap.getString(idcliente, null)); 
 			usuario.put(nombre, pref_ap.getString(nombre, null)); 
 			usuario.put(apellido, pref_ap.getString(apellido, null));
 			usuario.put(cedula, pref_ap.getString(cedula, null));

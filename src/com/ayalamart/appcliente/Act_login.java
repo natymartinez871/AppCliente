@@ -126,7 +126,7 @@ public class Act_login extends AppCompatActivity {
 									String clave_hash = bin2hex(getHash(password_str)); 
 
 									if (clave.equals(clave_hash)) {
-										sesion.crearSesionUSuario(nombre, correo, nombre, apellido, cedula, correo, telefono, clave_hash, tipocliente);
+										sesion.crearSesionUSuario(idcliente, nombre, correo, nombre, apellido, cedula, correo, telefono, clave_hash, tipocliente);
 
 										Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
 										intent_ppal.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 

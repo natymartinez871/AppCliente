@@ -79,8 +79,6 @@ public class Act_Principal extends AppCompatActivity {
 	   //  PushNotification pushNotification = pushnotificationService.sendPushMessageToUser(datousuario, messagestr);
 	   //  AppController.getInstance().addToRequestQueue();	
 		
-		
-	    
 		final Button buton_map = (Button) findViewById(R.id.but_mapa);
 
 		buton_map.setOnClickListener(new OnClickListener() {
@@ -155,8 +153,6 @@ public class Act_Principal extends AppCompatActivity {
 				startActivity(intent_menu);
 			}
 		});
-
-
 
 	}
 

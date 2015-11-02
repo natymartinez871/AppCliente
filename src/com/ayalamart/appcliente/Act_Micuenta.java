@@ -55,6 +55,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 		if (sesion.estaLogeadoelUsuario()) {
 			final HashMap<String, String> usuario = sesion.getDetallesUsuario(); 
+			final String idcliente = usuario.get(GestionSesionesUsuario.idcliente); 
 			String name = usuario.get(GestionSesionesUsuario.KEY_NAME); 
 			String email = usuario.get(GestionSesionesUsuario.KEY_EMAIL); 
 			String nombre = usuario.get(GestionSesionesUsuario.nombre); 
@@ -141,7 +142,7 @@ public class Act_Micuenta extends AppCompatActivity {
 					String cedula_act_n = Nac_doc + cedula_act;  
 					String telef_act_tot = OP_doc + telefono_act; 
 
-					Long idcliente = new Long(0); 
+				
 					JSONObject cliente_act = new JSONObject(); 
 					try {
 						cliente_act.put("apeCliente", apellido_act);
@@ -187,7 +188,7 @@ public class Act_Micuenta extends AppCompatActivity {
 
 
 					AppController.getInstance().addToRequestQueue(jsonObjReq1);
-					sesion.crearSesionUSuario(name, email, nombre_act, apellido_act, cedula_act, correo_act, telefono_act, clave_str, tipocliente);
+					sesion.crearSesionUSuario(idcliente, name, email, nombre_act, apellido_act, cedula_act, correo_act, telefono_act, clave_str, tipocliente);
 
 					Log.d(TAG, "LOGRO ACTUALIZAR"); 
 					hidepDialog();

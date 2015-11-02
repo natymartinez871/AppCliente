@@ -102,7 +102,7 @@ public class Act_Signup extends Activity {
 				final String telefono_str = telefono.getText().toString();
 				final String contrasena_str = contrasena.getText().toString(); 
 				final String conf_contrasena_str = conf_contrasena.getText().toString();
-				
+
 
 				String dato_nac = nac_spinner.getSelectedItem().toString(); 
 				Log.d(TAG, dato_nac); 
@@ -176,17 +176,14 @@ public class Act_Signup extends Activity {
 									}
 								});	
 
-								sesion.crearSesionUSuario(name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str, contrasena_cript, tipocliente);
-								
-								/*aqui tengo que colocar inicio de sesion. 
+								sesion.crearSesionUSuario("0", name, email, nombre_str, apellido_str, cedula_str, correo_str, telefono_str, contrasena_cript, tipocliente);
+
+								/* aqui tengo que colocar inicio de sesion. 
 								 * Si coteja lo que esta en la sesion de usuario (de archivo de SharedPrefs)
-								 *  contra el objeto JSon que se recibió, ENTONCES hace login
-								* y asi verifico que si se guardó la data en la bd. 
-								*/
-								
-								
-								
-								
+								 * contra el objeto JSon que se recibió, ENTONCES hace login
+								 * y asi verifico que si se guardó la data en la bd. 
+								 */
+
 								hidepDialog();
 
 								Intent intent_ppal = new Intent(getApplicationContext(), Act_Principal.class); 
