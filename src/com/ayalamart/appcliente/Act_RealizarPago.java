@@ -4,8 +4,10 @@ package com.ayalamart.appcliente;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.AuthFailureError;
@@ -13,8 +15,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.Request.Method;
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.ayalamart.helper.AppController;
+import com.ayalamart.helper.GestionPedidoUsuario;
+import com.ayalamart.helper.GestionSesionesUsuario;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -26,7 +33,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,18 +46,20 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Act_RealizarPago extends AppCompatActivity {
 	private ProgressDialog pDialog;
 	String url_pago = "https://api.instapago.com/payment/"; 
+	String url_realizpedido = "http://10.10.0.99:8080/Restaurante/rest/pedido/createPedido"; 
 	String body_encod; 
 	String KeyId = "0AA3DD33-5A8E-4088-8104-FC0F3A1A7AF5"; 
 	String PublicKeyId = "e449f92c01e7421f1d52011e9c674ba0"; 
 	Double Amount = 123456.00; 
 	String Description = "Pago+prueba"; 
 	JSONObject dataRX; 
-
+	GestionPedidoUsuario sesion_P;
 
 
 	//ejm
@@ -59,34 +70,123 @@ public class Act_RealizarPago extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act__realizar_pago);
 		pDialog = new ProgressDialog(this); 
+		
+		sesion_P = new GestionPedidoUsuario(getApplicationContext()); 
 
 		ScrollView scrollPago = (ScrollView)findViewById(R.id.scrollView_pago_realizado); 
 		scrollPago.setVisibility(View.GONE);
+		// final ImageView tipotdc = new ImageView(getApplicationContext()); 
+		final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
+		final String pedido_monto = pedido.get(GestionPedidoUsuario.Subtotal); 
+		TextView tv = (TextView)findViewById(R.id.textView3); 
+		tv.setText(pedido_monto);
 		final ImageView tipotdc = (ImageView)findViewById(R.id.imageView_TIPOTDC); 
-		final AutoCompleteTextView cardnumber = (AutoCompleteTextView)findViewById(R.id.etNroTDC); 
-		final Handler h = new Handler();
-		final int delay = 1000; //milliseconds
-		h.postDelayed(new Runnable(){
-			public void run(){
-			
-				String tipotarjeta = revisarTipodeTarjeta(cardnumber.getText().toString());
-				
-				if (tipotarjeta.equals("master")) {
-					
-					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
-					tipotdc.refreshDrawableState();
-				}else if (tipotarjeta.equals("visa")) {
-					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
-					tipotdc.refreshDrawableState();
 		
-				}else {
-					Log.d(TAG, "tipotarjeta no reconocible"); 
+		final AutoCompleteTextView cardnumber = (AutoCompleteTextView)findViewById(R.id.etNroTDC); 
+		/*cardnumber.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				/*This method is called to notify you that, within s, the count characters 
+				 * beginning at start have just replaced old text that had length before. 
+				 * It is an error to attempt to make changes to s from this callback.
+				 * */
+		
+		/*
+				String tdc_str = s.toString(); 
+				boolean tdcvalida = true; 
+				String tipotdc_Str = "blank"; 
+				if (tdc_str.length() == 2 && before == 0) {
+					if (Integer.parseInt(tdc_str) >= 50 || Integer.parseInt(tdc_str) < 60 ) {
+						tdcvalida = true; 
+						tipotdc_Str = "master"; 
+						
+					}else if (Integer.parseInt(tdc_str) >= 40 || Integer.parseInt(tdc_str) < 50) {
+						tipotdc_Str = "visa"; 
+						
+						tdcvalida = true; 
+					}else{
+						tdcvalida = false; 
+					}
+				}else  {
+					tdcvalida = false; 
 				}
-
-				h.postDelayed(this, delay);
+				if (tdcvalida) {
+					if (tipotdc_Str.equals("master")) {
+						tipotdc.setVisibility(View.VISIBLE);
+						tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
+					}else if (tipotdc_Str.equals("visa")) {
+						tipotdc.setVisibility(View.VISIBLE);
+						tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
+					}else  {
+						tipotdc.setVisibility(View.VISIBLE);
+						tipotdc.setImageDrawable(getDrawable(R.drawable.tdcblank));
+					}
+				}else  {
+					tipotdc.setVisibility(View.VISIBLE);
+					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcblank));
+				}
 			}
-		}, delay);
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				// TODO Auto-generated method stub
+				/* This method is called to notify you that, within s, the count characters 
+				 * beginning at start are about to be replaced by new text with length after. 
+				 * It is an error to attempt to make changes to s from this callback.
+				 * 
+				if (count>2) {
+					
+				}
+				/*else{
+		            	
+		                textView.setText("You have entered : " + passwordEditText.getText());
+		            }
+			/*	 * */
+//			}
+//			
+//			@Override
+//			public void afterTextChanged(Editable s) {
+//	//
+//				// TODO Auto-generated method stub
+//				
+				/* This method is called when the text has been changed.
+				 *  Because any changes you make will cause this method to be called again recursively, 
+				 *  you have to be watchful about performing operations here, otherwise it might lead to infinite loop.
+				 * 
+				 if (s.length() == 0) {
+					 tipotdc.setImageDrawable(getDrawable(R.drawable.tdcblank));
+		                
+		            } 
+				
+			}
+		});*/
+//		final Handler h = new Handler();
+//		final int delay = 1000; //milliseconds
+//		h.postDelayed(new Runnable(){
+//			public void run(){
+//			
+//				String tipotarjeta = revisarTipodeTarjeta(cardnumber.getText().toString());
+//				
+//				if (tipotarjeta.equals("master")) {
+//					
+//					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
+//					tipotdc.refreshDrawableState();
+//				}else if (tipotarjeta.equals("visa")) {
+//					tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
+//					tipotdc.refreshDrawableState();
+//		
+//				}else {
+//					Log.d(TAG, "tipotarjeta no reconocible"); 
+//				}
+//
+//				h.postDelayed(this, delay);
+//			}
+//		}, delay);
 
+		
+		
 		Button but_pagar = (Button)findViewById(R.id.but_pagar); 
 		but_pagar.setOnClickListener(new OnClickListener() {
 
@@ -99,10 +199,9 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 				AutoCompleteTextView cardholderID = (AutoCompleteTextView)findViewById(R.id.etCedulaTDC);
 				String CardHolderId = cardholderID.getText().toString(); 
-
-
+				
 				String CardNumber = cardnumber.getText().toString(); 
-
+				
 				AutoCompleteTextView cvc = (AutoCompleteTextView)findViewById(R.id.etCVCTDC);
 				String CVC = cvc.getText().toString(); 
 
@@ -110,7 +209,6 @@ public class Act_RealizarPago extends AppCompatActivity {
 				String StatusId = "2"; 
 				String IP = buscarIP(); 
 				String OrderNumber = "123456"; 
-
 
 				body_encod =  "KeyId" + "=" + KeyId + "&" + "PublicKeyId" + "=" + PublicKeyId + "&" + "Amount" + "=" + Amount + "&" +
 						"Description" + "=" + Description + "&" + "CardHolder" + "=" + CardHolder + "&" + "CardHolderId" + "=" + CardHolderId + "&" + 
@@ -173,6 +271,9 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 							}else if (code.equals("201")) {
 								showpDialog();
+								
+								realizarpedido();
+								
 								ScrollView scrollPago_i = (ScrollView)findViewById(R.id.scrollView_pago); 
 								scrollPago_i.setVisibility(View.GONE);
 
@@ -181,6 +282,7 @@ public class Act_RealizarPago extends AppCompatActivity {
 
 								WebView htmlWebView = (WebView)findViewById(R.id.wv_voucher); 
 								htmlWebView.loadData(Html.fromHtml(voucher).toString(), "text/html", null);
+								
 
 								hidepDialog();
 							}else if (code.equals("503")) {
@@ -247,6 +349,9 @@ public class Act_RealizarPago extends AppCompatActivity {
 		});
 
 		//here 
+		
+		
+		
 		Button but_guardarVoucher = (Button)findViewById(R.id.but_guardarvoucher);
 		but_guardarVoucher.setOnClickListener(new OnClickListener() {
 
@@ -271,33 +376,33 @@ public class Act_RealizarPago extends AppCompatActivity {
 		});
 
 	}
-	public String revisarTipodeTarjeta (final String tdc){
-		
-		if (tdc.length() > 2) {
-			for (int i = 0; i < 2; i++) {
-				char[] tdcChar = tdc.toCharArray();
-				char var = tdcChar[i];
-				String num5 = "5"; 
-				char[] num5char = num5.toCharArray(); 
-				String num4 = "4"; 
-				char[] num4char = num4.toCharArray(); 
-				if(Character.valueOf(var).equals(Character.valueOf(num5char[0])))  {
-					for (int k = 1; k == 6; k++) {
-						int var2 = Integer.parseInt(Character.valueOf(tdcChar[i++]).toString()); 
-						if (var2 == k) {
-							return "master"; 
-							//tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
-						}
-					}
-				}else if (Character.valueOf(var).equals(Character.valueOf(num4char[0]))) {
-					// tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
-					return "visa"; 
-				}
-			}
-		}
-		return tdc;
-
-	}
+//	public String revisarTipodeTarjeta (final String tdc){
+//		
+//		if (tdc.length() > 2) {
+//			for (int i = 0; i < 2; i++) {
+//				char[] tdcChar = tdc.toCharArray();
+//				char var = tdcChar[i];
+//				String num5 = "5"; 
+//				char[] num5char = num5.toCharArray(); 
+//				String num4 = "4"; 
+//				char[] num4char = num4.toCharArray(); 
+//				if(Character.valueOf(var).equals(Character.valueOf(num5char[0])))  {
+//					for (int k = 1; k == 6; k++) {
+//						int var2 = Integer.parseInt(Character.valueOf(tdcChar[i++]).toString()); 
+//						if (var2 == k) {
+//							return "master"; 
+//							//tipotdc.setImageDrawable(getDrawable(R.drawable.tdcmaster));
+//						}
+//					}
+//				}else if (Character.valueOf(var).equals(Character.valueOf(num4char[0]))) {
+//					// tipotdc.setImageDrawable(getDrawable(R.drawable.tdcvisa));
+//					return "visa"; 
+//				}
+//			}
+//		}
+//		return tdc;
+//
+//	}
 	private void takeScreenshot() {
 		Date now = new Date();
 		android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
@@ -347,6 +452,7 @@ public class Act_RealizarPago extends AppCompatActivity {
 			return null;
 		}
 	}
+	
 
 	/*	public void autorizarpago(){
 
@@ -414,6 +520,38 @@ public class Act_RealizarPago extends AppCompatActivity {
 		return true;
 
 
+	}
+	public void realizarpedido() throws JSONException{
+		//JsonObjectRequest reqPedir = new JsonObjectRequest(url, jsonRequest, listener, errorListener)
+	/*
+	 * final HashMap<String, String> usuario = sesion.getDetallesUsuario(); 
+			final String idcliente = usuario.get(GestionSesionesUsuario.idcliente); 
+	 * */
+		final HashMap<String, String> pedido = sesion_P.getDetallesPedido(); 
+		final String pedido_t = pedido.get(GestionPedidoUsuario.Pedido); 
+		JSONObject pedido_n = new JSONObject(pedido_t); 
+		JsonObjectRequest jsonObjReq1 = new JsonObjectRequest(url_realizpedido, pedido_n, new Listener<JSONObject>() {
+
+			@Override
+			public void onResponse(JSONObject jsonObject) {
+
+			}
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				VolleyLog.d(TAG, "Error: " + error.getMessage());
+
+				Log.d(TAG, "Error: " + error.getMessage()); 
+				/*Toast.makeText(getApplicationContext(),
+						error.getMessage(), Toast.LENGTH_SHORT).show();
+				 */
+				// hide the progress dialog
+				hidepDialog();
+
+			}
+		}) ; 
+		AppController.getInstance().addToRequestQueue(jsonObjReq1);
 	}
 
 	@Override

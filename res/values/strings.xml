@@ -52,5 +52,6 @@
     <string name="but_realizarpedido_menu">Realizar pedido</string>
     <string name="title_activity_act_detallespedido">Act_detallespedido</string>
     <string name="title_activity_act__realizar_pago">Act_RealizarPago</string>
+    <string name="title_activity_act_carrito">Act_carrito</string>
 
 </resources>

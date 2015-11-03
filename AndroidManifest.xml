@@ -119,6 +119,10 @@
             android:name=".Act_RealizarPago"
             android:label="@string/title_activity_act__realizar_pago" >
         </activity>
+        <activity
+            android:name=".Act_carrito"
+            android:label="@string/title_activity_act_carrito" >
+        </activity>
     </application>
 
 </manifest>

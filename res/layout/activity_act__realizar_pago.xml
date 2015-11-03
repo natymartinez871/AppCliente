@@ -90,14 +90,14 @@
                 <LinearLayout
                     android:layout_width="99dp"
                     android:layout_height="match_parent" >
-
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imageView_TIPOTDC"
                     android:layout_width="40dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/tdcblank" />
+                    android:src="@drawable/tdcblank"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <EditText

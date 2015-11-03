@@ -13,31 +13,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="right">
+        android:layout_height="wrap_content"
+        android:gravity="right" >
 
-      <TextView
-            android:id="@+id/textView4"
+        <Button
+            android:id="@+id/but_finalizPedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total con IVA" />
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bs."
-            android:textSize="30dp" />
+            android:text="REALIZAR PAGO" />
 
-        <TextView
-            android:id="@+id/Total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="00"
-            android:textSize="30dp" />
+<!--         <TextView -->
+<!--             android:id="@+id/textView4" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:text="Total con IVA" /> -->
 
-  
+<!--         <TextView -->
+<!--             android:id="@+id/textView1" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:text="Bs." -->
+<!--             android:textSize="30dp" /> -->
 
+<!--         <TextView -->
+<!--             android:id="@+id/Total" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:paddingBottom="10dp" -->
+<!--             android:text="00" -->
+<!--             android:textSize="30dp" /> -->
     </LinearLayout>
 
     <ListView
@@ -46,14 +50,9 @@
         android:layout_height="wrap_content"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
-        tools:listitem="@android:layout/simple_list_item_checked">
-        <!--         tools:listitem="@layout/fila_menu"  -->
-    </ListView>
+        tools:listitem="@android:layout/simple_list_item_checked" >
 
-    <Button
-        android:id="@+id/but_finalizPedido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FINALIZAR PEDIDO" />
+        <!-- tools:listitem="@layout/fila_menu" -->
+    </ListView>
 
 </LinearLayout>
